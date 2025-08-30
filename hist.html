@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>História</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #fff8f0, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page { display: none; padding: 40px; text-align: center; }
+    .active { display: block; }
+
+    /* Página inicial com os ícones */
+    .home {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      width: 90%;
+      max-width: 1000px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      width: 180px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .card-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    h1 { margin-bottom: 20px; }
+    .modules {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+    .module {
+      background: #ffe0b2;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      width: 60%;
+      transition: 0.2s;
+    }
+    .module:hover {
+      background: #ffcc80;
+      transform: scale(1.05);
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      display: inline-block;
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .back-btn:hover { background: #555; }
+  </style>
+</head>
+<body>
+
+  <!-- Página inicial -->
+  <div id="home" class="page active home">
+    <div class="card" onclick="showPage('antiga')">
+      <div class="card-icon">🏛️</div>
+      <h3>História Antiga</h3>
+    </div>
+    <div class="card" onclick="showPage('media')">
+      <div class="card-icon">⚔️</div>
+      <h3>História Medieval</h3>
+    </div>
+    <div class="card" onclick="showPage('moderna')">
+      <div class="card-icon">📜</div>
+      <h3>História Moderna</h3>
+    </div>
+    <div class="card" onclick="showPage('contemporanea')">
+      <div class="card-icon">🌍</div>
+      <h3>História Contemporânea</h3>
+    </div>
+    <div class="card" onclick="showPage('brasil')">
+      <div class="card-icon">🇧🇷</div>
+      <h3>História do Brasil</h3>
+    </div>
+  </div>
+
+  <!-- História Antiga -->
+  <div id="antiga" class="page">
+    <h1>História Antiga</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Mesopotâmia e Egito</div>
+      <div class="module">Módulo 2: Grécia Antiga</div>
+      <div class="module">Módulo 3: Roma Antiga</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- História Medieval -->
+  <div id="media" class="page">
+    <h1>História Medieval</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Feudalismo</div>
+      <div class="module">Módulo 2: Igreja e Sociedade</div>
+      <div class="module">Módulo 3: Cruzadas</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- História Moderna -->
+  <div id="moderna" class="page">
+    <h1>História Moderna</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Renascimento</div>
+      <div class="module">Módulo 2: Grandes Navegações</div>
+      <div class="module">Módulo 3: Revolução Científica</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- História Contemporânea -->
+  <div id="contemporanea" class="page">
+    <h1>História Contemporânea</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Revolução Francesa</div>
+      <div class="module">Módulo 2: Guerras Mundiais</div>
+      <div class="module">Módulo 3: Guerra Fria</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- História do Brasil -->
+  <div id="brasil" class="page">
+    <h1>História do Brasil</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Colonização</div>
+      <div class="module">Módulo 2: Independência</div>
+      <div class="module">Módulo 3: República</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>

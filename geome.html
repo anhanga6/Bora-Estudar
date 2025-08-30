@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geometria</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #e0f7fa, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page { display: none; padding: 40px; text-align: center; }
+    .active { display: block; }
+
+    /* Página inicial */
+    .home {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      width: 90%;
+      max-width: 1000px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      width: 180px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .card-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    h1 { margin-bottom: 20px; }
+
+    .modules {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .module {
+      background: #4dd0e1;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      width: 60%;
+      transition: 0.2s;
+    }
+    .module:hover {
+      background: #00acc1;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      display: inline-block;
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .back-btn:hover { background: #555; }
+  </style>
+</head>
+<body>
+
+  <!-- Página inicial -->
+  <div id="home" class="page active home">
+    <div class="card" onclick="showPage('figuras-planas')">
+      <div class="card-icon">🔺</div>
+      <h3>Figuras Planas</h3>
+    </div>
+    <div class="card" onclick="showPage('figuras-espaciais')">
+      <div class="card-icon">🧊</div>
+      <h3>Figuras Espaciais</h3>
+    </div>
+    <div class="card" onclick="showPage('area-volume')">
+      <div class="card-icon">📏</div>
+      <h3>Área e Volume</h3>
+    </div>
+    <div class="card" onclick="showPage('pitagoras')">
+      <div class="card-icon">📐</div>
+      <h3>Teorema de Pitágoras</h3>
+    </div>
+    <div class="card" onclick="showPage('geometria-analitica')">
+      <div class="card-icon">🟦</div>
+      <h3>Geometria Analítica</h3>
+    </div>
+  </div>
+
+  <!-- Figuras Planas -->
+  <div id="figuras-planas" class="page">
+    <h1>Figuras Planas</h1>
+    <div class="modules">
+      <div class="module">Triângulos</div>
+      <div class="module">Quadrados e Retângulos</div>
+      <div class="module">Círculos</div>
+      <div class="module">Polígonos</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Figuras Espaciais -->
+  <div id="figuras-espaciais" class="page">
+    <h1>Figuras Espaciais</h1>
+    <div class="modules">
+      <div class="module">Cubos e Prismas</div>
+      <div class="module">Esferas</div>
+      <div class="module">Pirâmides</div>
+      <div class="module">Cilindros e Cones</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Área e Volume -->
+  <div id="area-volume" class="page">
+    <h1>Área e Volume</h1>
+    <div class="modules">
+      <div class="module">Cálculo de Áreas</div>
+      <div class="module">Cálculo de Perímetros</div>
+      <div class="module">Cálculo de Volumes</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Teorema de Pitágoras -->
+  <div id="pitagoras" class="page">
+    <h1>Teorema de Pitágoras</h1>
+    <div class="modules">
+      <div class="module">Definição</div>
+      <div class="module">Aplicações práticas</div>
+      <div class="module">Exercícios resolvidos</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Geometria Analítica -->
+  <div id="geometria-analitica" class="page">
+    <h1>Geometria Analítica</h1>
+    <div class="modules">
+      <div class="module">Pontos no plano cartesiano</div>
+      <div class="module">Equação da reta</div>
+      <div class="module">Distância entre pontos</div>
+      <div class="module">Circunferência</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>

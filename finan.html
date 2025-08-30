@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matemática Financeira</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #f3e5f5, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page { display: none; padding: 40px; text-align: center; }
+    .active { display: block; }
+
+    /* Página inicial */
+    .home {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      width: 90%;
+      max-width: 1000px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      width: 180px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .card-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    h1 { margin-bottom: 20px; }
+
+    .modules {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .module {
+      background: #ba68c8;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      width: 60%;
+      transition: 0.2s;
+    }
+    .module:hover {
+      background: #8e24aa;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      display: inline-block;
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .back-btn:hover { background: #555; }
+  </style>
+</head>
+<body>
+
+  <!-- Página inicial -->
+  <div id="home" class="page active home">
+    <div class="card" onclick="showPage('juros')">
+      <div class="card-icon">💰</div>
+      <h3>Juros Simples</h3>
+    </div>
+    <div class="card" onclick="showPage('compostos')">
+      <div class="card-icon">📈</div>
+      <h3>Juros Compostos</h3>
+    </div>
+    <div class="card" onclick="showPage('descontos')">
+      <div class="card-icon">🏦</div>
+      <h3>Descontos</h3>
+    </div>
+    <div class="card" onclick="showPage('anualidades')">
+      <div class="card-icon">📊</div>
+      <h3>Anuidades</h3>
+    </div>
+    <div class="card" onclick="showPage('amortizacao')">
+      <div class="card-icon">📑</div>
+      <h3>Amortização</h3>
+    </div>
+  </div>
+
+  <!-- Juros Simples -->
+  <div id="juros" class="page">
+    <h1>Juros Simples</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Conceitos Iniciais</div>
+      <div class="module">Módulo 2: Fórmulas de Juros Simples</div>
+      <div class="module">Módulo 3: Aplicações Práticas</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Juros Compostos -->
+  <div id="compostos" class="page">
+    <h1>Juros Compostos</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Capitalização</div>
+      <div class="module">Módulo 2: Montante e Juros</div>
+      <div class="module">Módulo 3: Taxas Equivalentes</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Descontos -->
+  <div id="descontos" class="page">
+    <h1>Descontos</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Desconto Simples</div>
+      <div class="module">Módulo 2: Desconto Racional</div>
+      <div class="module">Módulo 3: Desconto Comercial</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Anuidades -->
+  <div id="anualidades" class="page">
+    <h1>Anuidades</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Conceito de Anuidade</div>
+      <div class="module">Módulo 2: Valor Futuro</div>
+      <div class="module">Módulo 3: Valor Presente</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Amortização -->
+  <div id="amortizacao" class="page">
+    <h1>Amortização</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Sistemas de Amortização</div>
+      <div class="module">Módulo 2: SAC e PRICE</div>
+      <div class="module">Módulo 3: Exemplos de Financiamento</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>

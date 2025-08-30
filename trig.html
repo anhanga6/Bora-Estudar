@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trigonometria</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #e3f2fd, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page { display: none; padding: 40px; text-align: center; }
+    .active { display: block; }
+
+    /* Página inicial */
+    .home {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      width: 90%;
+      max-width: 1000px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      width: 180px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .card-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    h1 { margin-bottom: 20px; }
+
+    .modules {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .module {
+      background: #42a5f5;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      width: 60%;
+      transition: 0.2s;
+    }
+    .module:hover {
+      background: #1e88e5;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      display: inline-block;
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .back-btn:hover { background: #555; }
+  </style>
+</head>
+<body>
+
+  <!-- Página inicial -->
+  <div id="home" class="page active home">
+    <div class="card" onclick="showPage('razoes')">
+      <div class="card-icon">📐</div>
+      <h3>Razões Trigonométricas</h3>
+    </div>
+    <div class="card" onclick="showPage('circulo')">
+      <div class="card-icon">⭕</div>
+      <h3>Círculo Trigonométrico</h3>
+    </div>
+    <div class="card" onclick="showPage('identidades')">
+      <div class="card-icon">➗</div>
+      <h3>Identidades</h3>
+    </div>
+    <div class="card" onclick="showPage('funcoes')">
+      <div class="card-icon">📊</div>
+      <h3>Funções Trigonométricas</h3>
+    </div>
+    <div class="card" onclick="showPage('leis')">
+      <div class="card-icon">📏</div>
+      <h3>Lei dos Senos e Cossenos</h3>
+    </div>
+  </div>
+
+  <!-- Razões Trigonométricas -->
+  <div id="razoes" class="page">
+    <h1>Razões Trigonométricas</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Seno, Cosseno e Tangente</div>
+      <div class="module">Módulo 2: Cotangente, Secante e Cossecante</div>
+      <div class="module">Módulo 3: Aplicações em Triângulos Retângulos</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Círculo Trigonométrico -->
+  <div id="circulo" class="page">
+    <h1>Círculo Trigonométrico</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Definição e Estrutura</div>
+      <div class="module">Módulo 2: Medidas em Graus e Radianos</div>
+      <div class="module">Módulo 3: Posições Notáveis</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Identidades -->
+  <div id="identidades" class="page">
+    <h1>Identidades Trigonométricas</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Fundamentais</div>
+      <div class="module">Módulo 2: Relações entre Funções</div>
+      <div class="module">Módulo 3: Exemplos e Exercícios</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Funções Trigonométricas -->
+  <div id="funcoes" class="page">
+    <h1>Funções Trigonométricas</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Gráficos de Seno e Cosseno</div>
+      <div class="module">Módulo 2: Gráfico da Tangente</div>
+      <div class="module">Módulo 3: Transformações (Amplitude, Período, Fase)</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Lei dos Senos e Cossenos -->
+  <div id="leis" class="page">
+    <h1>Lei dos Senos e Lei dos Cossenos</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Lei dos Senos</div>
+      <div class="module">Módulo 2: Lei dos Cossenos</div>
+      <div class="module">Módulo 3: Aplicações em Triângulos Qualquer</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>

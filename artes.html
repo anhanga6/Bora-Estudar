@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artes</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #fff5f5, #fff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page { display: none; padding: 40px; text-align: center; }
+    .active { display: block; }
+
+    /* Página inicial com os ícones */
+    .home {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      width: 90%;
+      max-width: 1000px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      width: 180px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .card-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    h1 { margin-bottom: 20px; }
+    .modules {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+    .module {
+      background: #fce4ec;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      width: 60%;
+      transition: 0.2s;
+    }
+    .module:hover {
+      background: #f8bbd0;
+      transform: scale(1.05);
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      display: inline-block;
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .back-btn:hover { background: #555; }
+  </style>
+</head>
+<body>
+
+  <!-- Página inicial -->
+  <div id="home" class="page active home">
+    <div class="card" onclick="showPage('artesVisuais')">
+      <div class="card-icon">🖌️</div>
+      <h3>Artes Visuais</h3>
+    </div>
+    <div class="card" onclick="showPage('musica')">
+      <div class="card-icon">🎵</div>
+      <h3>Música</h3>
+    </div>
+    <div class="card" onclick="showPage('danca')">
+      <div class="card-icon">💃</div>
+      <h3>Dança</h3>
+    </div>
+    <div class="card" onclick="showPage('teatro')">
+      <div class="card-icon">🎭</div>
+      <h3>Teatro</h3>
+    </div>
+    <div class="card" onclick="showPage('cinema')">
+      <div class="card-icon">🎬</div>
+      <h3>Cinema</h3>
+    </div>
+  </div>
+
+  <!-- Artes Visuais -->
+  <div id="artesVisuais" class="page">
+    <h1>Artes Visuais</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Pintura e Desenho</div>
+      <div class="module">Módulo 2: Escultura</div>
+      <div class="module">Módulo 3: Arte Digital</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Música -->
+  <div id="musica" class="page">
+    <h1>Música</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: História da Música</div>
+      <div class="module">Módulo 2: Ritmo e Melodia</div>
+      <div class="module">Módulo 3: Instrumentos Musicais</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Dança -->
+  <div id="danca" class="page">
+    <h1>Dança</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Dança Clássica</div>
+      <div class="module">Módulo 2: Dança Popular</div>
+      <div class="module">Módulo 3: Dança Contemporânea</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Teatro -->
+  <div id="teatro" class="page">
+    <h1>Teatro</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: História do Teatro</div>
+      <div class="module">Módulo 2: Expressão Corporal</div>
+      <div class="module">Módulo 3: Interpretação</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Cinema -->
+  <div id="cinema" class="page">
+    <h1>Cinema</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: História do Cinema</div>
+      <div class="module">Módulo 2: Linguagem Cinematográfica</div>
+      <div class="module">Módulo 3: Produção Audiovisual</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>

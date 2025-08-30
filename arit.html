@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aritmética</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #f0f8ff, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page { display: none; padding: 40px; text-align: center; }
+    .active { display: block; }
+
+    /* Página inicial */
+    .home {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      width: 90%;
+      max-width: 1000px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      width: 180px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .card-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    h1 { margin-bottom: 20px; }
+    .modules {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+    .module {
+      background: #81d4fa;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      width: 60%;
+      transition: 0.2s;
+    }
+    .module:hover {
+      background: #29b6f6;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      display: inline-block;
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .back-btn:hover { background: #555; }
+  </style>
+</head>
+<body>
+
+  <!-- Página inicial -->
+  <div id="home" class="page active home">
+    <div class="card" onclick="showPage('numeros')">
+      <div class="card-icon">🔢</div>
+      <h3>Números Naturais e Inteiros</h3>
+    </div>
+    <div class="card" onclick="showPage('racionais')">
+      <div class="card-icon">➗</div>
+      <h3>Números Racionais</h3>
+    </div>
+    <div class="card" onclick="showPage('operacoes')">
+      <div class="card-icon">➕</div>
+      <h3>Operações Básicas</h3>
+    </div>
+    <div class="card" onclick="showPage('potencias')">
+      <div class="card-icon">✖️</div>
+      <h3>Potenciação e Radiciação</h3>
+    </div>
+    <div class="card" onclick="showPage('porcentagem')">
+      <div class="card-icon">💯</div>
+      <h3>Razões, Proporções e Porcentagem</h3>
+    </div>
+  </div>
+
+  <!-- Números Naturais e Inteiros -->
+  <div id="numeros" class="page">
+    <h1>Números Naturais e Inteiros</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Conjuntos Numéricos</div>
+      <div class="module">Módulo 2: Linha dos Inteiros</div>
+      <div class="module">Módulo 3: Comparação de Números</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Números Racionais -->
+  <div id="racionais" class="page">
+    <h1>Números Racionais</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Frações e Decimais</div>
+      <div class="module">Módulo 2: Comparação e Ordenação</div>
+      <div class="module">Módulo 3: Frações Geradoras</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Operações Básicas -->
+  <div id="operacoes" class="page">
+    <h1>Operações Básicas</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Adição e Subtração</div>
+      <div class="module">Módulo 2: Multiplicação</div>
+      <div class="module">Módulo 3: Divisão e Algoritmo da Divisão</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Potenciação e Radiciação -->
+  <div id="potencias" class="page">
+    <h1>Potenciação e Radiciação</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Potências de Base 10</div>
+      <div class="module">Módulo 2: Propriedades das Potências</div>
+      <div class="module">Módulo 3: Raízes Quadradas e Cúbicas</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Razões e Porcentagem -->
+  <div id="porcentagem" class="page">
+    <h1>Razões, Proporções e Porcentagem</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Razão e Proporção</div>
+      <div class="module">Módulo 2: Regra de Três Simples</div>
+      <div class="module">Módulo 3: Porcentagem no Dia a Dia</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sociologia</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #f3e5f5, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page { display: none; padding: 40px; text-align: center; }
+    .active { display: block; }
+
+    /* Página inicial */
+    .home {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      width: 90%;
+      max-width: 1000px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      width: 180px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .card-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    h1 { margin-bottom: 20px; }
+    .modules {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+    .module {
+      background: #d1c4e9;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      width: 60%;
+      transition: 0.2s;
+    }
+    .module:hover {
+      background: #b39ddb;
+      transform: scale(1.05);
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      display: inline-block;
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .back-btn:hover { background: #555; }
+  </style>
+</head>
+<body>
+
+  <!-- Página inicial -->
+  <div id="home" class="page active home">
+    <div class="card" onclick="showPage('classicos')">
+      <div class="card-icon">📖</div>
+      <h3>Clássicos da Sociologia</h3>
+    </div>
+    <div class="card" onclick="showPage('cultura')">
+      <div class="card-icon">🎭</div>
+      <h3>Cultura e Sociedade</h3>
+    </div>
+    <div class="card" onclick="showPage('politica')">
+      <div class="card-icon">🏛️</div>
+      <h3>Sociologia Política</h3>
+    </div>
+    <div class="card" onclick="showPage('desigualdade')">
+      <div class="card-icon">⚖️</div>
+      <h3>Desigualdade Social</h3>
+    </div>
+    <div class="card" onclick="showPage('cotidiano')">
+      <div class="card-icon">👥</div>
+      <h3>Sociologia do Cotidiano</h3>
+    </div>
+  </div>
+
+  <!-- Clássicos -->
+  <div id="classicos" class="page">
+    <h1>Clássicos da Sociologia</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Karl Marx e o Materialismo Histórico</div>
+      <div class="module">Módulo 2: Max Weber e a Ação Social</div>
+      <div class="module">Módulo 3: Émile Durkheim e a Coesão Social</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Cultura e Sociedade -->
+  <div id="cultura" class="page">
+    <h1>Cultura e Sociedade</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Cultura Popular e Cultura Erudita</div>
+      <div class="module">Módulo 2: Diversidade Cultural</div>
+      <div class="module">Módulo 3: Identidade e Globalização</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Política -->
+  <div id="politica" class="page">
+    <h1>Sociologia Política</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Estado e Poder</div>
+      <div class="module">Módulo 2: Democracia e Cidadania</div>
+      <div class="module">Módulo 3: Movimentos Sociais</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Desigualdade -->
+  <div id="desigualdade" class="page">
+    <h1>Desigualdade Social</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Classes Sociais</div>
+      <div class="module">Módulo 2: Gênero e Raça</div>
+      <div class="module">Módulo 3: Exclusão Social</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Cotidiano -->
+  <div id="cotidiano" class="page">
+    <h1>Sociologia do Cotidiano</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Relações Familiares</div>
+      <div class="module">Módulo 2: Educação e Escola</div>
+      <div class="module">Módulo 3: Trabalho e Consumo</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>

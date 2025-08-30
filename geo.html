@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geografia</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #e0f7fa, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page { display: none; padding: 40px; text-align: center; }
+    .active { display: block; }
+
+    /* Página inicial */
+    .home {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      width: 90%;
+      max-width: 1000px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      width: 180px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .card-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    h1 { margin-bottom: 20px; }
+    .modules {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+    .module {
+      background: #b2ebf2;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      width: 60%;
+      transition: 0.2s;
+    }
+    .module:hover {
+      background: #80deea;
+      transform: scale(1.05);
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      display: inline-block;
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .back-btn:hover { background: #555; }
+  </style>
+</head>
+<body>
+
+  <!-- Página inicial -->
+  <div id="home" class="page active home">
+    <div class="card" onclick="showPage('fisica')">
+      <div class="card-icon">⛰️</div>
+      <h3>Geografia Física</h3>
+    </div>
+    <div class="card" onclick="showPage('humana')">
+      <div class="card-icon">🏙️</div>
+      <h3>Geografia Humana</h3>
+    </div>
+    <div class="card" onclick="showPage('economica')">
+      <div class="card-icon">💰</div>
+      <h3>Geografia Econômica</h3>
+    </div>
+    <div class="card" onclick="showPage('ambiental')">
+      <div class="card-icon">🌱</div>
+      <h3>Geografia Ambiental</h3>
+    </div>
+    <div class="card" onclick="showPage('brasil')">
+      <div class="card-icon">🇧🇷</div>
+      <h3>Geografia do Brasil</h3>
+    </div>
+  </div>
+
+  <!-- Geografia Física -->
+  <div id="fisica" class="page">
+    <h1>Geografia Física</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Relevo e Formações Geológicas</div>
+      <div class="module">Módulo 2: Climas e Biomas</div>
+      <div class="module">Módulo 3: Hidrografia</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Geografia Humana -->
+  <div id="humana" class="page">
+    <h1>Geografia Humana</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: População e Demografia</div>
+      <div class="module">Módulo 2: Migrações</div>
+      <div class="module">Módulo 3: Urbanização</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Geografia Econômica -->
+  <div id="economica" class="page">
+    <h1>Geografia Econômica</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Agricultura e Indústria</div>
+      <div class="module">Módulo 2: Comércio Global</div>
+      <div class="module">Módulo 3: Globalização</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Geografia Ambiental -->
+  <div id="ambiental" class="page">
+    <h1>Geografia Ambiental</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Recursos Naturais</div>
+      <div class="module">Módulo 2: Sustentabilidade</div>
+      <div class="module">Módulo 3: Impactos Ambientais</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Geografia do Brasil -->
+  <div id="brasil" class="page">
+    <h1>Geografia do Brasil</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Relevo e Clima do Brasil</div>
+      <div class="module">Módulo 2: População Brasileira</div>
+      <div class="module">Módulo 3: Economia e Regionalização</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>

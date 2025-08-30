@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educação Física</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #f0fff4, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page { display: none; padding: 40px; text-align: center; }
+    .active { display: block; }
+
+    /* Página inicial com os ícones */
+    .home {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      width: 90%;
+      max-width: 1000px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      width: 180px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .card-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    h1 { margin-bottom: 20px; }
+    .modules {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+    .module {
+      background: #e0f7fa;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      width: 60%;
+      transition: 0.2s;
+    }
+    .module:hover {
+      background: #b2ebf2;
+      transform: scale(1.05);
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      display: inline-block;
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .back-btn:hover { background: #555; }
+  </style>
+</head>
+<body>
+
+  <!-- Página inicial -->
+  <div id="home" class="page active home">
+    <div class="card" onclick="showPage('esportesColetivos')">
+      <div class="card-icon">🏀</div>
+      <h3>Esportes Coletivos</h3>
+    </div>
+    <div class="card" onclick="showPage('esportesIndividuais')">
+      <div class="card-icon">🤸</div>
+      <h3>Esportes Individuais</h3>
+    </div>
+    <div class="card" onclick="showPage('saude')">
+      <div class="card-icon">💪</div>
+      <h3>Saúde e Condicionamento</h3>
+    </div>
+    <div class="card" onclick="showPage('jogosBrincadeiras')">
+      <div class="card-icon">🎲</div>
+      <h3>Jogos e Brincadeiras</h3>
+    </div>
+    <div class="card" onclick="showPage('historiaEF')">
+      <div class="card-icon">📚</div>
+      <h3>História da Educação Física</h3>
+    </div>
+  </div>
+
+  <!-- Esportes Coletivos -->
+  <div id="esportesColetivos" class="page">
+    <h1>Esportes Coletivos</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Basquete</div>
+      <div class="module">Módulo 2: Futebol</div>
+      <div class="module">Módulo 3: Vôlei</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Esportes Individuais -->
+  <div id="esportesIndividuais" class="page">
+    <h1>Esportes Individuais</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Atletismo</div>
+      <div class="module">Módulo 2: Natação</div>
+      <div class="module">Módulo 3: Ginástica</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Saúde e Condicionamento -->
+  <div id="saude" class="page">
+    <h1>Saúde e Condicionamento</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Alongamento e Flexibilidade</div>
+      <div class="module">Módulo 2: Força e Resistência</div>
+      <div class="module">Módulo 3: Alimentação Saudável</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Jogos e Brincadeiras -->
+  <div id="jogosBrincadeiras" class="page">
+    <h1>Jogos e Brincadeiras</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Jogos Populares</div>
+      <div class="module">Módulo 2: Brincadeiras Tradicionais</div>
+      <div class="module">Módulo 3: Dinâmicas em Grupo</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- História da Educação Física -->
+  <div id="historiaEF" class="page">
+    <h1>História da Educação Física</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Origem e Evolução</div>
+      <div class="module">Módulo 2: Educação Física Escolar</div>
+      <div class="module">Módulo 3: Perspectivas Atuais</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>

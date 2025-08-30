@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biologia</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Poppins',sans-serif; background:linear-gradient(120deg,#e8f5e9,#f1f8e9); min-height:100vh; padding:40px; color:#333; }
+.page { display:none; padding:40px; text-align:center; width:100%; }
+.active { display:block; }
+
+.container { display:flex; gap:40px; max-width:1000px; width:100%; }
+.menu { flex:1; display:flex; flex-direction:column; gap:20px; }
+.menu h1 { font-family:'Playfair Display',serif; font-size:2.5rem; color:#1b5e20; margin-bottom:20px; }
+.btn { width:280px; height:55px; display:flex; align-items:center; justify-content:flex-start; gap:10px; border:none; border-radius:12px; font-size:18px; font-weight:600; text-decoration:none; padding-left:20px; cursor:pointer; box-shadow:0px 4px 10px rgba(0,0,0,0.1); transition:all 0.25s ease; }
+.bio1 { background-color:#81c784;color:#fff; }
+.bio2 { background-color:#4caf50;color:#fff; }
+.bio3 { background-color:#2e7d32;color:#fff; }
+.btn:hover { transform:translateX(6px) scale(1.05); box-shadow:0px 6px 16px rgba(0,0,0,0.2); }
+
+.home { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:30px; justify-items:center; }
+.card { background:white; padding:30px; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,0.15); cursor:pointer; transition: transform 0.2s, box-shadow 0.2s; text-align:center; width:180px; }
+.card:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.25); }
+.card-icon { font-size:50px; margin-bottom:15px; }
+
+.modules { margin-top:20px; display:flex; flex-direction:column; gap:15px; align-items:center; }
+.module { background:#c8e6c9; padding:15px 25px; border-radius:10px; box-shadow:0 3px 8px rgba(0,0,0,0.15); cursor:pointer; width:60%; transition:0.2s; }
+.module:hover { background:#81c784; color:#fff; transform:scale(1.05); }
+.back-btn { margin-top:30px; display:inline-block; background:#333; color:white; padding:10px 20px; border-radius:8px; text-decoration:none; cursor:pointer; transition:0.2s; }
+.back-btn:hover { background:#555; }
+
+@media (max-width:768px) { .container { flex-direction:column; align-items:center; } .btn { width:90%; } .home { width:100%; } }
+</style>
+</head>
+<body>
+
+<!-- Página Inicial Biologia -->
+<div id="bioHome" class="page active container">
+  <div class="menu">
+    <h1>🧬 Biologia</h1>
+    <a class="btn bio1" onclick="showPage('A1')">Biologia A1</a>
+    <a class="btn bio2" onclick="showPage('A2')">Biologia A2</a>
+    <a class="btn bio3" onclick="showPage('A3')">Biologia A3</a>
+  </div>
+</div>
+
+<!-- Página A1 -->
+<div id="A1" class="page">
+  <h1>Biologia A1</h1>
+  <div class="home">
+    <div class="card" onclick="showPage('A1Fundamentos')"><div class="card-icon">🧬</div><h3>Fundamentos</h3></div>
+    <div class="card" onclick="showPage('A1Bioquimica')"><div class="card-icon">⚗️</div><h3>Bioquímica</h3></div>
+    <div class="card" onclick="showPage('A1Citologia')"><div class="card-icon">🔬</div><h3>Citologia</h3></div>
+    <div class="card" onclick="showPage('A1Genetica')"><div class="card-icon">🧪</div><h3>Genética</h3></div>
+  </div>
+  <div class="back-btn" onclick="showPage('bioHome')">⬅ Voltar</div>
+</div>
+
+<!-- Página A2 -->
+<div id="A2" class="page">
+  <h1>Biologia A2</h1>
+  <div class="home">
+    <div class="card" onclick="showPage('A2Embriologia')"><div class="card-icon">🧫</div><h3>Embriologia</h3></div>
+    <div class="card" onclick="showPage('A2Histologia')"><div class="card-icon">🧬</div><h3>Histologia</h3></div>
+    <div class="card" onclick="showPage('A2Evolucao')"><div class="card-icon">🌱</div><h3>Evolução</h3></div>
+    <div class="card" onclick="showPage('A2Sistematica')"><div class="card-icon">🧭</div><h3>Sistemática</h3></div>
+  </div>
+  <div class="back-btn" onclick="showPage('bioHome')">⬅ Voltar</div>
+</div>
+
+<!-- Página A3 -->
+<div id="A3" class="page">
+  <h1>Biologia A3</h1>
+  <div class="home">
+    <div class="card" onclick="showPage('A3Fisiologia')"><div class="card-icon">❤️</div><h3>Fisiologia Humana</h3></div>
+    <div class="card" onclick="showPage('A3Ecologia')"><div class="card-icon">🌳</div><h3>Ecologia</h3></div>
+    <div class="card" onclick="showPage('A3Biotec')"><div class="card-icon">🧫</div><h3>Biotecnologia</h3></div>
+  </div>
+  <div class="back-btn" onclick="showPage('bioHome')">⬅ Voltar</div>
+</div>
+
+<!-- Módulos A1 -->
+<div id="A1Fundamentos" class="page">
+  <h1>Fundamentos da Biologia</h1>
+  <div class="modules">
+    <div class="module">Módulo 1: Introdução à Biologia</div>
+    <div class="module">Módulo 2: Conceito de Vida</div>
+    <div class="module">Módulo 3: Origem da Vida</div>
+  </div>
+  <div class="back-btn" onclick="showPage('A1')">⬅ Voltar</div>
+</div>
+
+<div id="A1Bioquimica" class="page">
+  <h1>Bioquímica</h1>
+  <div class="modules">
+    <div class="module">Módulo 1: Moléculas Orgânicas</div>
+    <div class="module">Módulo 2: Metabolismo</div>
+    <div class="module">Módulo 3: Enzimas</div>
+  </div>
+  <div class="back-btn" onclick="showPage('A1')">⬅ Voltar</div>
+</div>
+
+<div id="A1Citologia" class="page">
+  <h1>Citologia</h1>
+  <div class="modules">
+    <div class="module">Módulo 1: Célula Procariótica e Eucariótica</div>
+    <div class="module">Módulo 2: Organelas</div>
+    <div class="module">Módulo 3: Membrana e Transporte</div>
+  </div>
+  <div class="back-btn" onclick="showPage('A1')">⬅ Voltar</div>
+</div>
+
+<div id="A1Genetica" class="page">
+  <h1>Genética</h1>
+  <div class="modules">
+    <div class="module">Módulo 1: Hereditariedade</div>
+    <div class="module">Módulo 2: Leis de Mendel</div>
+    <div class="module">Módulo 3: DNA e RNA</div>
+  </div>
+  <div class="back-btn" onclick="showPage('A1')">⬅ Voltar</div>
+</div>
+
+<!-- Módulos A2 -->
+<div id="A2Embriologia" class="page">
+  <h1>Embriologia</h1>
+  <div class="modules">
+    <div class="module">Módulo 1: Gametogênese</div>
+    <div class="module">Módulo 2: Fecundação</div>
+    <div class="module">Módulo 3: Desenvolvimento Embrionário</div>
+  </div>
+  <div class="back-btn" onclick="showPage('A2')">⬅ Voltar</div>
+</div>
+
+<div id="A2Histologia" class="page">
+  <h1>Histologia</h1>
+  <div class="modules">
+    <div class="module">Módulo 1: Tecidos Epiteliais</div>
+    <div class="module">Módulo 2: Tecidos Conjuntivos</div>
+    <div class="module">Módulo 3: Tecidos Musculares e Nervosos</div>
+  </div>
+  <div class="back-btn" onclick="showPage('A2')">⬅ Voltar</div>
+</div>
+
+<div id="A2Evolucao" class="page">
+  <h1>Evolução</h1>
+  <div class="modules">
+    <div class="module">Módulo 1: Teorias Evolutivas</div>
+    <div class="module">Módulo 2: Seleção Natural</div>
+    <div class="module">Módulo 3: Especiação</div>
+  </div>
+  <div class="back-btn" onclick="showPage('A2')">⬅ Voltar</div>
+</div>
+
+<div id="A2Sistematica" class="page">
+  <h1>Sistemática</h1>
+  <div class="modules">
+    <div class="module">Módulo 1: Classificação dos Seres Vivos</div>
+    <div class="module">Módulo 2: Reinos Biológicos</div>
+    <div class="module">Módulo 3: Filogenia</div>
+  </div>
+  <div class="back-btn" onclick="showPage('A2')">⬅ Voltar</div>
+</div>
+
+<!-- Módulos A3 -->
+<div id="A3Fisiologia" class="page">
+  <h1>Fisiologia Humana</h1>
+  <div class="modules">
+    <div class="module">Módulo 1: Sistemas do Corpo</div>
+    <div class="module">Módulo 2: Homeostase</div>
+    <div class="module">Módulo 3: Hormônios</div>
+  </div>
+  <div class="back-btn" onclick="showPage('A3')">⬅ Voltar</div>
+</div>
+
+<div id="A3Ecologia" class="page">
+  <h1>Ecologia</h1>
+  <div class="modules">
+    <div class="module">Módulo 1: Cadeias e Teias Alimentares</div>
+    <div class="module">Módulo 2: Ciclos Biogeoquímicos</div>
+    <div class="module">Módulo 3: Impactos Ambientais</div>
+  </div>
+  <div class="back-btn" onclick="showPage('A3')">⬅ Voltar</div>
+</div>
+
+<div id="A3Biotec" class="page">
+  <h1>Biotecnologia</h1>
+  <div class="modules">
+    <div class="module">Módulo 1: Engenharia Genética</div>
+    <div class="module">Módulo 2: Clonagem</div>
+    <div class="module">Módulo 3: Transgênicos</div>
+  </div>
+  <div class="back-btn" onclick="showPage('A3')">⬅ Voltar</div>
+</div>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Língua Estrangeira (Inglês)</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #eef7ff, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page { display: none; padding: 40px; text-align: center; }
+    .active { display: block; }
+
+    /* Página inicial com os ícones */
+    .home {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      width: 90%;
+      max-width: 1000px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      width: 180px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .card-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    h1 { margin-bottom: 20px; }
+    .modules {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+    .module {
+      background: #e3f2fd;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      width: 60%;
+      transition: 0.2s;
+    }
+    .module:hover {
+      background: #bbdefb;
+      transform: scale(1.05);
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      display: inline-block;
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .back-btn:hover { background: #555; }
+  </style>
+</head>
+<body>
+
+  <!-- Página inicial -->
+  <div id="home" class="page active home">
+    <div class="card" onclick="showPage('reading')">
+      <div class="card-icon">📖</div>
+      <h3>Reading</h3>
+    </div>
+    <div class="card" onclick="showPage('listening')">
+      <div class="card-icon">🎧</div>
+      <h3>Listening</h3>
+    </div>
+    <div class="card" onclick="showPage('speaking')">
+      <div class="card-icon">🗣️</div>
+      <h3>Speaking</h3>
+    </div>
+    <div class="card" onclick="showPage('writing')">
+      <div class="card-icon">✍️</div>
+      <h3>Writing</h3>
+    </div>
+    <div class="card" onclick="showPage('vocabulary')">
+      <div class="card-icon">📚</div>
+      <h3>Vocabulary & Grammar</h3>
+    </div>
+  </div>
+
+  <!-- Reading -->
+  <div id="reading" class="page">
+    <h1>Reading</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Skimming & Scanning</div>
+      <div class="module">Módulo 2: Text Types</div>
+      <div class="module">Módulo 3: Critical Reading</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Listening -->
+  <div id="listening" class="page">
+    <h1>Listening</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Compreensão Global</div>
+      <div class="module">Módulo 2: Palavras-chave</div>
+      <div class="module">Módulo 3: Listening for Details</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Speaking -->
+  <div id="speaking" class="page">
+    <h1>Speaking</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Pronunciation</div>
+      <div class="module">Módulo 2: Everyday Dialogues</div>
+      <div class="module">Módulo 3: Public Speaking</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Writing -->
+  <div id="writing" class="page">
+    <h1>Writing</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Sentences & Paragraphs</div>
+      <div class="module">Módulo 2: Essay Structure</div>
+      <div class="module">Módulo 3: Creative Writing</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Vocabulary & Grammar -->
+  <div id="vocabulary" class="page">
+    <h1>Vocabulary & Grammar</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Basic Vocabulary</div>
+      <div class="module">Módulo 2: Verb Tenses</div>
+      <div class="module">Módulo 3: Idioms & Expressions</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>

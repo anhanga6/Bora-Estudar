@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Probabilidade e Estatística</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #e0f7fa, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page { display: none; padding: 40px; text-align: center; }
+    .active { display: block; }
+
+    /* Página inicial */
+    .home {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      width: 90%;
+      max-width: 1000px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      width: 180px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .card-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    h1 { margin-bottom: 20px; }
+
+    .modules {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .module {
+      background: #4dd0e1;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      width: 60%;
+      transition: 0.2s;
+    }
+    .module:hover {
+      background: #00acc1;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      display: inline-block;
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .back-btn:hover { background: #555; }
+  </style>
+</head>
+<body>
+
+  <!-- Página inicial -->
+  <div id="home" class="page active home">
+    <div class="card" onclick="showPage('conceitos')">
+      <div class="card-icon">🎲</div>
+      <h3>Conceitos Básicos</h3>
+    </div>
+    <div class="card" onclick="showPage('probabilidade')">
+      <div class="card-icon">📊</div>
+      <h3>Probabilidade</h3>
+    </div>
+    <div class="card" onclick="showPage('estatistica')">
+      <div class="card-icon">📈</div>
+      <h3>Estatística Descritiva</h3>
+    </div>
+    <div class="card" onclick="showPage('distribuicoes')">
+      <div class="card-icon">🔢</div>
+      <h3>Distribuições</h3>
+    </div>
+    <div class="card" onclick="showPage('inferencial')">
+      <div class="card-icon">📐</div>
+      <h3>Estatística Inferencial</h3>
+    </div>
+  </div>
+
+  <!-- Conceitos Básicos -->
+  <div id="conceitos" class="page">
+    <h1>Conceitos Básicos</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: População e Amostra</div>
+      <div class="module">Módulo 2: Variáveis e Dados</div>
+      <div class="module">Módulo 3: Medidas de Tendência Central</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Probabilidade -->
+  <div id="probabilidade" class="page">
+    <h1>Probabilidade</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Espaço Amostral e Eventos</div>
+      <div class="module">Módulo 2: Probabilidade Condicional</div>
+      <div class="module">Módulo 3: Teorema de Bayes</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Estatística Descritiva -->
+  <div id="estatistica" class="page">
+    <h1>Estatística Descritiva</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Tabelas e Gráficos</div>
+      <div class="module">Módulo 2: Medidas de Dispersão</div>
+      <div class="module">Módulo 3: Boxplot e Histogramas</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Distribuições -->
+  <div id="distribuicoes" class="page">
+    <h1>Distribuições</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Distribuição Binomial</div>
+      <div class="module">Módulo 2: Distribuição Normal</div>
+      <div class="module">Módulo 3: Outras Distribuições</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <!-- Estatística Inferencial -->
+  <div id="inferencial" class="page">
+    <h1>Estatística Inferencial</h1>
+    <div class="modules">
+      <div class="module">Módulo 1: Estimativas e Intervalos de Confiança</div>
+      <div class="module">Módulo 2: Testes de Hipóteses</div>
+      <div class="module">Módulo 3: Correlação e Regressão</div>
+    </div>
+    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>

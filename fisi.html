@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Física</title>
+  <link rel="stylesheet" href="estilo-natureza.css">
+</head>
+<body>
+
+<!-- Página inicial de Física -->
+<div id="fisHome" class="page active container">
+  <div class="menu">
+    <h1>⚛️ Física</h1>
+    <a class="btn" onclick="showPage('fisA1')">Física A1</a>
+    <a class="btn" onclick="showPage('fisA2')">Física A2</a>
+    <a class="btn" onclick="showPage('fisA3')">Física A3</a>
+  </div>
+</div>
+
+<!-- Física A1 -->
+<div id="fisA1" class="page">
+  <h1>Física A1</h1>
+  <div class="home">
+    <div class="card" onclick="showPage('mecanica')"><div class="card-icon">⚙️</div><h3>Mecânica</h3></div>
+    <div class="card" onclick="showPage('cinematica')"><div class="card-icon">📈</div><h3>Cinemática</h3></div>
+    <div class="card" onclick="showPage('dinamica')"><div class="card-icon">🌀</div><h3>Dinâmica</h3></div>
+    <div class="card" onclick="showPage('estatica')"><div class="card-icon">🏗️</div><h3>Estática</h3></div>
+  </div>
+  <div class="back-btn" onclick="showPage('fisHome')">⬅ Voltar</div>
+</div>
+
+<!-- Física A2 -->
+<div id="fisA2" class="page">
+  <h1>Física A2</h1>
+  <div class="home">
+    <div class="card" onclick="showPage('termologia')"><div class="card-icon">🌡️</div><h3>Termologia</h3></div>
+    <div class="card" onclick="showPage('ondulatoria')"><div class="card-icon">🌊</div><h3>Ondulatória</h3></div>
+    <div class="card" onclick="showPage('optica')"><div class="card-icon">🔦</div><h3>Óptica</h3></div>
+    <div class="card" onclick="showPage('acustica')"><div class="card-icon">🎵</div><h3>Acústica</h3></div>
+  </div>
+  <div class="back-btn" onclick="showPage('fisHome')">⬅ Voltar</div>
+</div>
+
+<!-- Física A3 -->
+<div id="fisA3" class="page">
+  <h1>Física A3</h1>
+  <div class="home">
+    <div class="card" onclick="showPage('eletrodinamica')"><div class="card-icon">⚡</div><h3>Eletrodinâmica</h3></div>
+    <div class="card" onclick="showPage('magnetismo')"><div class="card-icon">🧲</div><h3>Magnetismo</h3></div>
+    <div class="card" onclick="showPage('fisica-moderna')"><div class="card-icon">🌌</div><h3>Física Moderna</h3></div>
+  </div>
+  <div class="back-btn" onclick="showPage('fisHome')">⬅ Voltar</div>
+</div>
+
+<!-- Exemplo de módulos -->
+<div id="mecanica" class="page">
+  <h1>Mecânica</h1>
+  <div class="modules">
+    <div class="module">Módulo 1: Conceitos Fundamentais</div>
+    <div class="module">Módulo 2: Leis de Newton</div>
+    <div class="module">Módulo 3: Trabalho e Energia</div>
+  </div>
+  <div class="back-btn" onclick="showPage('fisA1')">⬅ Voltar</div>
+</div>
+
+<script src="script-natureza.js"></script>
+</body>
+</html>
+

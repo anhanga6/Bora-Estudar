@@ -12,23 +12,18 @@
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
+      padding: 40px 20px;
     }
+    .container { width: 100%; max-width: 1000px; }
 
-    .page { display: none; padding: 40px; text-align: center; }
-    .active { display: block; }
-
-    /* Página inicial com os ícones */
+    /* Cards iniciais */
     .home {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 40px;
-      width: 90%;
-      max-width: 1000px;
       justify-items: center;
-      align-items: center;
     }
-
     .card {
       background: white;
       padding: 30px;
@@ -39,24 +34,12 @@
       text-align: center;
       width: 180px;
     }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+    .card-icon { font-size: 50px; margin-bottom: 15px; }
 
-    .card-icon {
-      font-size: 50px;
-      margin-bottom: 15px;
-    }
-
-    h1 { margin-bottom: 20px; }
-    .modules {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      align-items: center;
-    }
+    /* Módulos */
+    .modules { display: none; margin-top: 30px; flex-direction: column; gap: 15px; align-items: center; }
+    .modules.active { display: flex; }
     .module {
       background: #e3f2fd;
       padding: 15px 25px;
@@ -65,112 +48,1434 @@
       cursor: pointer;
       width: 60%;
       transition: 0.2s;
+      text-align: center;
     }
-    .module:hover {
-      background: #bbdefb;
-      transform: scale(1.05);
-    }
+    .module:hover { background: #bbdefb; transform: scale(1.05); }
 
-    .back-btn {
+    /* Conteúdo dos módulos */
+    .content { display: none; margin-top: 30px; padding: 20px; background: #fff; border-radius: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); }
+    .content.active { display: block; }
+    .content h2 { margin-bottom: 15px; }
+
+    /* Atividades */
+    .activities {
       margin-top: 30px;
-      display: inline-block;
-      background: #333;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      text-decoration: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+    }
+    .activity {
+      background: #e8f5e9;
+      padding: 15px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       cursor: pointer;
       transition: 0.2s;
     }
-    .back-btn:hover { background: #555; }
+    .activity:hover { background: #c8e6c9; transform: translateY(-3px); }
   </style>
 </head>
 <body>
 
-  <!-- Página inicial -->
-  <div id="home" class="page active home">
-    <div class="card" onclick="showPage('interpretacao')">
-      <div class="card-icon">📖</div>
-      <h3>Interpretação de Texto</h3>
-    </div>
-    <div class="card" onclick="showPage('gramatica')">
-      <div class="card-icon">✏️</div>
-      <h3>Gramática e Ortografia</h3>
-    </div>
-    <div class="card" onclick="showPage('producao')">
-      <div class="card-icon">📝</div>
-      <h3>Produção Textual</h3>
-    </div>
-    <div class="card" onclick="showPage('linguistica')">
-      <div class="card-icon">📚</div>
-      <h3>Linguística</h3>
-    </div>
-    <div class="card" onclick="showPage('literatura')">
-      <div class="card-icon">🎭</div>
-      <h3>Literatura</h3>
-    </div>
-  </div>
+  <div class="container">
 
-  <!-- Interpretação de Texto -->
-  <div id="interpretacao" class="page">
-    <h1>Interpretação de Texto</h1>
-    <div class="modules">
-      <div class="module">Módulo 1: Técnicas de leitura</div>
-      <div class="module">Módulo 2: Tipos de texto</div>
-      <div class="module">Módulo 3: Interpretação crítica</div>
+    <!-- Cards iniciais -->
+    <div class="home">
+      <div class="card" onclick="toggleModules('interpretacao-mods')">
+        <div class="card-icon">📖</div>
+        <h3>Interpretação de Texto</h3>
+      </div>
+      <div class="card" onclick="toggleModules('gramatica-mods')">
+        <div class="card-icon">✏️</div>
+        <h3>Gramática e Ortografia</h3>
+      </div>
+      <div class="card" onclick="toggleModules('producao-mods')">
+        <div class="card-icon">📝</div>
+        <h3>Produção Textual</h3>
+      </div>
+      <div class="card" onclick="toggleModules('linguistica-mods')">
+        <div class="card-icon">📚</div>
+        <h3>Linguística</h3>
+      </div>
+      <div class="card" onclick="toggleModules('literatura-mods')">
+        <div class="card-icon">🎭</div>
+        <h3>Literatura</h3>
+      </div>
     </div>
-    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
-  </div>
 
-  <!-- Gramática -->
-  <div id="gramatica" class="page">
-    <h1>Gramática e Ortografia</h1>
-    <div class="modules">
-      <div class="module">Módulo 1: Morfologia</div>
-      <div class="module">Módulo 2: Sintaxe</div>
-      <div class="module">Módulo 3: Pontuação</div>
+    <!-- Módulos Interpretação -->
+    <div id="interpretacao-mods" class="modules">
+      <div class="module" onclick="showContent('inter-modulo1')">Módulo 1: Técnicas de leitura</div>
+      <div class="module" onclick="showContent('inter-modulo2')">Módulo 2: Tipos de texto</div>
+      <div class="module" onclick="showContent('inter-modulo3')">Módulo 3: Coesão e coerência</div>
+      <div class="module" onclick="showContent('inter-modulo4')">Módulo 4: Análise Critica</div>
     </div>
-    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
-  </div>
 
-  <!-- Produção Textual -->
-  <div id="producao" class="page">
-    <h1>Produção Textual</h1>
-    <div class="modules">
-      <div class="module">Módulo 1: Estrutura da redação</div>
-      <div class="module">Módulo 2: Argumentação</div>
-      <div class="module">Módulo 3: Coesão e coerência</div>
-    </div>
-    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
-  </div>
+        <!-- Módulos linguistica -->
+        <div id="linguistica-mods" class="modules">
+          <div class="module" onclick="showContent('lingui-modulo1')">Módulo 1: Fundamentos da Linguística</div>
+          <div class="module" onclick="showContent('lingui-modulo2')">Módulo 2: Estrutra e Variação da Língua</div>
+          <div class="module" onclick="showContent('lingui-modulo3')">Módulo 3: Significado e Uso da Língua</div>
+          <div class="module" onclick="showContent('lingui-modulo4')">Módulo 4: Variação, Mudança e Aquisição da Língua</div>
+        </div>
 
-  <!-- Linguística -->
-  <div id="linguistica" class="page">
-    <h1>Linguística</h1>
-    <div class="modules">
-      <div class="module">Módulo 1: Fonética e Fonologia</div>
-      <div class="module">Módulo 2: Semântica</div>
-      <div class="module">Módulo 3: Sociolinguística</div>
+      <!-- Módulos gramatica -->
+    <div id="gramatica-mods" class="modules">
+      <div class="module" onclick="showContent('grama-modulo1')">Módulo 1: A Estrutura e Formação das Palavras</div>
+      <div class="module" onclick="showContent('grama-modulo2')">Módulo 2: Classes de Palavras(parte 1)</div>
+      <div class="module" onclick="showContent('grama-modulo3')">Módulo 3: Classes de Palavras (parte 2)</div>
+      <div class="module" onclick="showContent('grama-modulo4')">Módulo 4: Classes de Palavras (parte 3)</div>
     </div>
-    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
-  </div>
 
-  <!-- Literatura -->
-  <div id="literatura" class="page">
-    <h1>Literatura</h1>
-    <div class="modules">
-      <div class="module">Módulo 1: Escolas Literárias</div>
-      <div class="module">Módulo 2: Principais autores</div>
-      <div class="module">Módulo 3: Análise de obras</div>
+    <!-- Módulos redacao -->
+    <div id="producao-mods" class="modules">
+      <div class="module" onclick="showContent('produ-modulo1')">Módulo 1: Técnicas de leitura</div>
+      <div class="module" onclick="showContent('produ-modulo2')">Módulo 2: Tipos de texto</div>
+      <div class="module" onclick="showContent('produ-modulo3')">Módulo 3: Coesão e coerência</div>
+      <div class="module" onclick="showContent('produ-modulo4')">Módulo 4: Análise Critica</div>
     </div>
-    <div class="back-btn" onclick="showPage('home')">⬅ Voltar</div>
-  </div>
+
+    <!-- Módulos literatura -->
+    <div id="literatura-mods" class="modules">
+      <div class="module" onclick="showContent('lite-modulo1')">Módulo 1: Técnicas de leitura</div>
+      <div class="module" onclick="showContent('lite-modulo2')">Módulo 2: Tipos de texto</div>
+      <div class="module" onclick="showContent('lite-modulo3')">Módulo 3: Coesão e coerência</div>
+      <div class="module" onclick="showContent('lite-modulo4')">Módulo 4: Análise Critica</div>
+    </div>
+
+    <!-- Conteúdo do Módulo 1 -->
+    <div id="inter-modulo1" class="content">
+        <h2>Módulo 1 - Leitura e Interpretação de Texto</h2>
+        <h3>Tema: Estratégias de Leitura</h3><br>
+        <h4>Introdução</h4><br>
+        <p>Já sentiu que está lendo, mas a sua mente está em outro lugar? Ou que, ao terminar um texto, você se pergunta: “o que eu acabei de ler?”. Se a resposta for sim, este módulo é para você.<br>
+          A leitura é muito mais do que simplesmente decodificar palavras. Ela envolve compreender, interpretar e refletir sobre o que foi lido. Para isso, existem estratégias que ajudam o leitor a construir sentido a partir do texto, tornando a leitura mais ativa, crítica e proveitosa.<br>
+          Neste módulo, vamos estudar as principais técnicas que podem ser aplicadas em diferentes tipos de textos, sejam eles literários, científicos, jornalísticos ou do dia a dia.<br> </p>
+        <br>
+        <h4>1. O que são Estratégias de Leitura? </h4><br>
+        <p>Estratégias de leitura são procedimentos conscientes que o leitor utiliza para entender melhor um texto. Diferente de apenas ler de forma passiva, o uso de estratégias permite que você:<br>
+        <br>
+        <li>Antecipe informações e formule hipóteses sobre o que será lido;</li>
+        <li>Confirme ou corrija ideias à medida que avança na leitura;</li> 
+        <li>Relacione o texto com seus conhecimentos prévios;</li>
+        <li>Identifique as intenções do autor e avalie o conteúdo de forma crítica.</li>
+        <br>
+        Em outras palavras, ler com estratégia é interagir com o texto, e não apenas passar os olhos nas palavras. </p><br>
+        <br>
+        <h4>2. Conhecimentos Prévios e Previsão </h4><br>
+        <p>Um dos primeiros passos para compreender um texto é ativar o que já sabemos sobre o tema. Chamamos isso de conhecimentos prévios.<br>
+          Antes de ler, o leitor pode se perguntar: "O que eu já sei sobre esse assunto?".<br> Essas informações ajudam a antecipar o conteúdo e a criar expectativas que serão confirmadas ou negadas durante a leitura.<br>
+          Exemplo: Se o título do texto é “Mudanças Climáticas”, você pode prever que ele vai falar sobre aquecimento global, poluição, derretimento de geleiras, etc. Essa previsão ajuda a orientar a sua leitura.<br></p>
+        <br>
+        <h5>Texto-exemplo:</h5><br>
+        <h5>Título: O avanço da inteligência artificial no mercado de trabalho</h5><br> 
+        <br>
+        <p>"Nos últimos anos, a inteligência artificial (IA) tem se expandido em diferentes áreas, desde diagnósticos médicos até a automação de tarefas administrativas. Esse avanço traz benefícios, mas também levanta preocupações sobre o futuro de algumas profissões."<br></p> 
+        <br> 
+        <h5>Aplicação da estratégia:</h5><br> 
+        <br> 
+        <p>Antes mesmo de ler o texto, só pelo título, você pode ativar seus conhecimentos prévios:<br>
+        <br>
+        <li>IA é um tipo de tecnologia.</li> 
+        <li>Já ouvi falar que máquinas podem substituir algumas funções humanas.</li> 
+        <li>Sei que esse tema é polêmico, envolve benefícios e riscos.</li><br> 
+        <br>
+            Com isso, você já prevê que o texto vai falar sobre:<br> 
+        <br>
+        <li>Profissões ameaçadas pela IA;</li>
+        <li>Áreas que vão se beneficiar;</li>
+        <li>Questões éticas e sociais.</li><br>
+        <br>
+            🔎 <b>Conclusão:</b> Ao ativar o que já sabe, sua leitura se torna mais direcionada, e você acompanha melhor o raciocínio do autor.</p><br> 
+        <br> 
+        <h4>3. Skimming e Scanning</h4><br> 
+        <p>Existem duas técnicas internacionais muito úteis para ajustar a velocidade da leitura conforme seu objetivo:<br> 
+        <br> 
+        <b>Skimming (leitura rápida para ideia geral)</b>: Usada para captar a ideia principal do texto sem se prender a detalhes. Você pode usar essa técnica para ler apenas títulos, subtítulos e as primeiras frases dos parágrafos, para ter uma noção geral sobre o tema.<br>
+        <br>
+        <b>Scanning (leitura localizada)</b>: Usada para buscar uma informação específica. É como procurar o preço de um produto em um anúncio ou uma data em um artigo científico. Você passa os olhos rapidamente pelo texto, focado apenas na informação que procura.</p><br>
+        <h5>Texto-exemplo:</h5><br> 
+        <h5>Notícia de jornal:</h5> 
+        <p> "O Brasil registrou, em 2023, a maior safra de grãos da história, com produção estimada em 320 milhões de toneladas. O resultado foi impulsionado principalmente pela soja e pelo milho, que representaram mais de 80% da colheita nacional."</p><br> 
+        <h5>Aplicando Skimming:</h5><br> 
+        <p>Ao ler rapidamente o título e a primeira frase, você já entende que o texto fala sobre recorde na safra de grãos no Brasil em 2023.<br> 
+          Não é necessário ler os detalhes para captar a mensagem central.</p><br> 
+        <h5>Aplicando Scanning:</h5><br> 
+        <p>Pergunta: “Qual foi a produção total registrada em 2023?”<br> 
+          Passa os olhos pelo texto até encontrar 320 milhões de toneladas.<br> 
+          Você foca apenas no dado numérico, sem precisar absorver todo o contexto.<br> 
+        <br>
+          🔎 <b>Conclusão:</b> Skimming ajuda a ter uma visão geral; Scanning ajuda a localizar informações precisas.</p><br><br>
+        <h4>4. Inferência</h4><br> 
+        <p>Nem sempre o autor escreve tudo de forma explícita. Muitas vezes, é necessário ler nas entrelinhas.<br> 
+          A inferência é a habilidade de deduzir informações que estão implícitas, a partir de pistas do texto e de seus conhecimentos. Essa estratégia ajuda a compreender mensagens escondidas ou indiretas.<br> 
+        <b>Exemplo:</b> Se você lê a frase “Maria saiu de casa com o guarda-chuva, mas voltou encharcada”, pode-se inferir que choveu muito forte ou que o guarda-chuva não foi suficiente.</p><br> 
+        <h5>Texto-exemplo:</h5><br> 
+        <p>"Pedro entrou na sala de aula com a cabeça baixa e não falou com ninguém. Durante a aula, olhou várias vezes para o relógio e não fez nenhuma anotação."</p> 
+        <h5>Aplicação da estratégia:</h5><br> 
+        <p>O texto não diz explicitamente o que Pedro sente.<br> 
+          Mas, pelas pistas, podemos inferir que ele está triste, desanimado ou ansioso para que a aula termine.<br> 
+        <br> 
+          🔎 <b>Conclusão:</b> A inferência nos ajuda a entender sentimentos, intenções e significados ocultos no texto.</p><br>
+        <br>
+        <h4>5. Identificação de Ideias Principais e Secundárias</h4><br> 
+        <p>Outro ponto essencial é distinguir o que é mais importante no texto.<br> 
+          A ideia principal é o eixo central, a mensagem que o autor quer comunicar.<br> 
+          As ideias secundárias são as informações que explicam, detalham ou dão exemplos para reforçar a ideia principal.<br> 
+          Treinar essa habilidade ajuda a fazer resumos e a não se perder em detalhes irrelevantes.<br></p> 
+        <h5>Texto-exemplo:</h5><br> 
+        <p> "A prática regular de atividades físicas é fundamental para a saúde. Além de melhorar o condicionamento físico, ela ajuda a prevenir doenças como diabetes e hipertensão. Também contribui para a saúde mental, reduzindo o estresse e melhorando a qualidade do sono."</p><br> 
+        <h5>Aplicação da estratégia:</h5><br> 
+        <b>Ideia principal:</b><br>
+        <li>A prática regular de atividades físicas é fundamental para a saúde.</li><br> 
+        <b>Ideias secundárias:</b><br> 
+        <li>Melhora o condicionamento físico.</li> 
+        <li>Previne doenças como diabetes e hipertensão.</li> 
+        <li>Reduz o estresse e melhora o sono.</li><br> 
+        <p>🔎 <b>Conclusão:</b> Saber separar o que é central do que é complementar permite resumir e estudar melhor.</p><br>
+        <br>
+        <h4>6. Reconhecimento da Estrutura Textual<h4><br>
+        <p>Cada tipo de texto tem uma estrutura característica. Saber identificá-la facilita a compreensão. Por exemplo:</p>
+        <li>Textos narrativos têm personagens, enredo e um desfecho.</li>
+        <li>Textos descritivos usam muitos adjetivos para detalhar pessoas ou lugares.</li>
+        <li>Textos dissertativos-argumentativos apresentam uma tese, argumentos e uma conclusão.</li> 
+        <li>Textos instrucionais têm um passo a passo.</li><br> 
+        <p>Reconhecer essas estruturas acelera o entendimento e orienta você sobre o que esperar do texto.</p><br>
+        <h5>Texto-exemplo (narrativo):</h5><br>
+        <p> "Era uma manhã fria quando Clara decidiu sair para caminhar. No caminho, encontrou um cão perdido, que a seguiu até em casa. Depois de algumas semanas, o animal já fazia parte da família."</p>
+        <h5>Aplicação da estratégia:</h5>
+        <h5>Estrutura típica de narrativa:</h5>,br>
+        <p><b>Personagem:</b> Clara.<br>
+        <b>Enredo:</b> sai para caminhar, encontra o cão, adota-o.<br>
+        <b>Desfecho:</b> o cão passa a ser da família.</p><br>
+        <h5>Texto-exemplo (instrucional):</h5><br>
+        <p> "Para fazer um suco de laranja natural, siga estes passos: 1. Lave bem as frutas. 2. Corte-as ao meio. 3. Esprema cada metade em um espremedor. 4. Sirva gelado."<br>
+        <br>
+        <b>Estrutura típica de texto instrucional:</b> passo a passo, verbos no imperativo.<br><br>
+          🔎 <b>Conclusão:</b> Identificar a estrutura ajuda a ajustar sua leitura: narrativa pede acompanhar a história; instrucional pede seguir etapas.</p><br>
+        <br>
+        <h4>7. Estratégia de Questionamento</h5><br> 
+        <p>Uma boa técnica para se manter ativo e engajado com o texto é fazer perguntas a si mesmo, antes, durante e depois da leitura:</p><br>
+        <li>Antes: "O que eu espero encontrar neste texto?"</li>
+        <li>Durante: "Qual a ideia principal que o autor defende?"</li>
+        <li>Depois: "O que eu aprendi de novo? O que ainda ficou confuso?"</li><br>
+        <h5>Texto-exemplo:</h5><br>
+        <p> "O aumento do uso de bicicletas nas cidades brasileiras tem trazido benefícios como a redução da poluição e a melhora da mobilidade urbana. No entanto, ainda existem desafios, como a falta de ciclovias e o desrespeito no trânsito."</p><br>
+        <h5>Aplicação da estratégia:</h5> 
+        <p><b>Antes:</b> O que espero encontrar? → Alguma discussão sobre transporte sustentável.<br>
+        <b>Durante:</b> Qual a ideia principal? → Bicicletas trazem benefícios, mas ainda há desafios.<br> 
+        <b>Depois:</b> O que aprendi? → Bicicleta reduz poluição, mas depende de infraestrutura adequada.<br>
+        <br>
+          🔎 <b>Conclusão:</b> Questionar mantém o leitor envolvido e ajuda a fixar melhor a informação.</p><br>
+        <br>
+        <h4>8. Avaliação Crítica</h4><br>
+        <p>A leitura não termina quando chegamos ao ponto final. É importante avaliar o texto criticamente, questionando sua validade e intenção.<br>
+          Pense em uma notícia que viralizou nas redes sociais e pergunte-se:<br>
+          "O autor é confiável? O texto apresenta preconceitos ou estereótipos?"<br>
+          "Os argumentos são bem fundamentados? Eles se baseiam em fatos ou apenas em opiniões?"<br>
+          Assim, a leitura se torna uma ferramenta de formação cidadã, e não apenas um exercício escolar.</p><br>
+        <h5>Texto-exemplo (notícia de rede social):</h5><br> 
+        <p> "Um estudo comprova que beber dois litros de chá de ervas por dia pode curar qualquer tipo de doença."</p><br>
+        <h5>Aplicação da estratégia:</h5><br>
+        <p><b>O autor é confiável? →</b> Não há fonte do estudo, então a confiabilidade é duvidosa.<br>
+        <b>Há preconceitos ou exageros? →</b> Sim, afirmar que cura “qualquer doença” é generalização.<br>
+        <b>Os argumentos são fundamentados? →</b> Não. Não há dados científicos apresentados.<br>
+        <br>
+          🔎 <b>Conclusão:</b> Avaliar criticamente evita cair em fake news e permite selecionar melhor as informações em que acreditar.<br>
+        <br>
+        <h4>Conclusão:</h4><br>
+        <p>Ler com estratégia significa compreender em profundidade, construindo sentido a partir da interação entre o texto e o leitor. Essas técnicas são fundamentais para melhorar a interpretação e para formar leitores críticos, capazes de utilizar a leitura em diversas situações da vida.</p> 
+        <!-- Atividades -->
+        <div class="activities">
+        <div class="activity">Atividade 1</div>
+        <div class="activity">Atividade 2</div>
+        <div class="activity">Atividade 3</div>
+        <div class="activity">Atividade 4</div>
+        <div class="activity">Atividade 5</div>
+        </div>
+      </div>
+
+      <!--Conteúdo do Módulo 2-->
+      <div id="inter-modulo2" class="content">
+        <h2>Módulo 2 - Leitura e Interpretação de Texto</h2>
+        <h3>Tema: Elementos textuais e contexto de produção</h3><br>
+        <h4>1. O que são elementos textuais?</h4><br>
+        <p>Para interpretar um texto de forma eficiente, não basta apenas ler as palavras. É preciso compreender os elementos que compõem esse texto. Esses elementos ajudam o leitor a identificar quem escreveu, para quem escreveu, por que escreveu e em que situação o texto foi produzido.<br>
+        <br>
+        <b>Os principais elementos textuais são:</b></p><br>
+        <li><b>Autor →</b> Quem produziu o texto, sua visão de mundo, suas intenções.</li>
+        <li><b>Leitor →</b> A quem o texto se destina, o público-alvo.</li>
+        <li><b>Intenção comunicativa →</b> O objetivo do autor (informar, convencer, emocionar, instruir etc.).</li>
+        <li><b>Gênero textual →</b> O formato em que o texto aparece (notícia, artigo de opinião, conto, carta, propaganda etc.).</li>
+        <li><b>Suporte →</b> Onde o texto foi publicado ou veiculado (livro, jornal, site, rede social, outdoor etc.).</li>
+        <li><b>Contexto →</b> O momento histórico, cultural e social em que o texto foi produzido.</li><br>
+        <p><b>Exemplo prático:</b><br>
+            Uma propaganda de refrigerante publicada em uma revista dos anos 1950 terá intenções, linguagem e estratégias bem diferentes de uma propaganda atual na internet.</p><br>
+        <h5>Texto-exemplo</h5><br>
+        <h5>Linha fina de um site institucional (2024):</h5><br>
+        <p> “Nosso compromisso é reduzir as emissões em 40% até 2030.” — Relatório de Sustentabilidade da Empresa X, publicado no portal corporativo.</p><br>
+        <h5>Como interpretar (passo a passo)</h5><br>
+        <p><b>Autor:</b> Empresa X (instância institucional).<br>
+        <b>Pista:</b> assinatura no relatório e publicação no portal corporativo.<br>
+        <b>Leitor (público-alvo):</b> investidores, clientes, imprensa e sociedade.<br>
+        <b>Pista:</b> linguagem formal, termos de metas e prazos, formato “relatório”.<br>
+        <b>Intenção comunicativa:</b> informar e reputacional (construir credibilidade).<br>
+        <b>Pista:</b> meta numérica (“40% até 2030”), tom objetivo, foco em compromisso.<br>
+        <b>Gênero textual:</b> relatório institucional / comunicado público.<br>
+        <b>Pista:</b> estrutura declarativa e assinatura corporativa.<br>
+        <b>Suporte:</b> site corporativo (canal oficial).<br>
+        <b>Impacto na leitura:</b> aumenta a noção de “posicionamento oficial”.<br>
+        <b>Contexto:</b> agenda global de clima e ESG.<br>
+        <b>Impacto:</b> o leitor entende que há pressão social/regulatória por metas ambientais.</b>
+        <br>
+        <b>Conclusão interpretativa:</b> não é uma opinião casual; é um posicionamento oficial com finalidade informativa e persuasiva (credibilidade), endereçado a públicos de interesse, ancorado no contexto ESG.</p><br>
+        <br>
+        <h4>2. O papel do contexto na leitura</h4><br>
+        <p>O contexto é essencial para interpretar um texto corretamente. Ele pode ser dividido em:<br>
+        <br>
+        <b>Contexto de produção →</b> As condições em que o texto foi escrito (época, lugar, intenções do autor).<br>
+        <b>Contexto de circulação →</b> Onde e como o texto foi divulgado.<br>
+        <b>Contexto de recepção →</b> Como o leitor entende e interpreta o texto, dependendo de sua bagagem cultural, escolaridade, crenças e experiências.<br>
+        <p><b>Exemplo prático:</b><br>
+        <br>
+          Um meme pode ser engraçado para quem conhece a situação retratada, mas pode não ter sentido para alguém que não compartilha da mesma referência cultural.</p><br>
+        <h5>Texto-exemplo A (postado em março de 2020):</h5><br>
+        <p> “Recomendamos evitar aglomerações e manter distância física.</p>”<br>
+        <h5>Texto-exemplo B (postado em julho de 2024):</h5><br>
+        <p> “Recomendamos evitar aglomerações e manter distância física.”</p><br>
+        <br>
+        <h5>Como interpretar (passo a passo)</h5><br>
+        <p>Mesmo enunciado, contextos diferentes.<br>
+        <b>Contexto 2020: pandemia emergente →</b> recomendação de saúde pública.<br>
+        <b>Contexto 2024:</b> pode ser um aviso pontual (ex.: surto localizado, evento lotado).<br>
+        <b>Efeito no sentido:</b> em 2020, leitura é geral e urgente; em 2024, leitura é situacional.<br>
+        <b>Método:</b> localizar tempo/lugar de produção (data do post), relacionar com fatos sociais; isso modula a força e o alcance da mensagem.<br>
+        <br>
+        <b>Conclusão interpretativa:</b> o contexto temporal muda o modo como entendemos a mesma frase: de política sanitária geral (2020) para orientação circunstancial (2024).</p><br>
+        <h4>3. A influência do gênero textual</h4><br>
+        <p>Cada gênero textual possui características próprias que orientam o leitor:</p><br>
+        <li>Notícia → Busca informar, usa linguagem objetiva, responde às perguntas: o quê? quem? quando? onde? como? por quê?</li>
+        <li>Artigo de opinião → Argumenta sobre um tema, apresenta a opinião do autor, usa argumentos lógicos e persuasivos.</li>
+        <li>Crônica → Texto curto, geralmente narrativo, que comenta fatos do cotidiano de maneira subjetiva.</li>
+        <li>Poema → Trabalha com ritmo, rima e subjetividade, voltado para a expressão artística.</li>
+        <li>Propaganda → Visa persuadir o leitor/consumidor, utilizando imagens e recursos de convencimento.</li><br>
+        <p>Conhecer as marcas típicas de cada gênero ajuda a compreender a função do texto e a interpretar corretamente sua mensagem.</p><br>
+        <h4>4. Interlocutores: autor, narrador e leitor</h4><br>
+        <p>Nem sempre o autor (quem escreve) é o mesmo que o narrador (voz que fala no texto).<br>
+          Em textos literários, o narrador pode ser uma criação fictícia, e não a visão direta do autor.<br>
+          Em textos jornalísticos, há a tentativa de neutralidade, mas a escolha de palavras já revela uma intenção.<br>
+          O leitor também participa ativamente do processo, pois interpreta o texto com base em suas próprias experiências.</p><br>
+        <h5>Exemplo prático:</h5><br>
+        <p>Um romance narrado em primeira pessoa não significa que o autor viveu aquela história. Trata-se de uma escolha narrativa.</p><br>
+        <h5>Texto-exemplo (primeira pessoa em narrativa literária):</h5><br>
+        <p> “Vendi o violão do meu pai e não contei a ninguém. Desde então, o som das cordas me persegue.”</p><br>
+        <h5>Como interpretar (passo a passo)</h5><br>
+        <p><b>Narrador ≠ Autor:</b> a voz em “eu” é personagem-narrador, não necessariamente o escritor real.<br>
+        <b>Pista:</b> confissão íntima, culpa metafórica (“o som me persegue”).<br>
+        <b>Efeito no leitor:</b> leitura empática, foco em subjetividade e culpa.<br>
+        <b>Método:</b> distinguir instância narrativa (quem fala no texto) de instância autoral (quem escreveu no mundo real).</b>
+          Isso evita interpretar o texto como autobiografia factual.<br>
+        <br>
+        <b>Conclusão interpretativa:</b> a história apresenta culpa como tema; o “eu” é um recurso de construção estética, não prova de que o autor viveu o fato.</p><br>
+        <h5>5. Intenção comunicativa</h5><br>
+        <p>Todo texto tem uma função e uma intenção.
+        <b>Principais funções da linguagem:</b></p><br>
+        <li>Referencial → Informar (ex.: notícia, manual de instrução).</li>
+        <li>Conativa ou apelativa → Convencer/persuadir (ex.: propaganda, discurso político). </li>
+        <li>Poética → Valorizar a estética da linguagem (ex.: poema, música). </li>
+        <li>Fática → Estabelecer contato (ex.: cumprimentos, conversas). </li>
+        <li>Metalinguística → Falar sobre a própria linguagem (ex.: dicionário, gramática). </li>
+        <li>Emotiva → Expressar sentimentos (ex.: diário pessoal, carta de amor). </li><br>
+        <p>Identificar a intenção do texto é essencial para uma boa interpretação.</p><br>
+        <h5>Três microtextos sobre o mesmo produto (água mineral)</h5><br>
+        <p><b>Referencial (informar):</b><br>
+        <p> “Garrafa de 500 ml, pH 7,2, fonte Serra Azul, validade: 12 meses.”</p><br>
+        <p><b>Apelativa/conativa (persuadir):</b></p><br>
+        <p> “Hidrate seu dia: escolha pureza em cada gole!”</p><br>
+        <p><b>Emotiva (expressar):</b></p><br>
+        <p> “Sinto a mente leve sempre que bebo essa água.”</p><br>
+        <h5>Como interpretar (passo a passo)</h5><br>
+        <p><b>Identificar objetivo:</b> informar ficha técnica (referencial), convencer a compra (apelativa), expressar sensação (emotiva).</p><br>
+        <p><b>Marcas linguísticas:</b><br>
+        <br>
+        <b>Referencial →</b> dados, números, substantivos específicos.<br>
+        <b>Apelativa →</b> verbo no imperativo (“escolha”), slogan.<br>
+        <b>Emotiva →</b> primeira pessoa, adjetivos sensoriais (“leve”).<br>
+        <br>
+        <b>Método:</b> observar léxico, modo verbal, pessoa do discurso e efeito pretendido.<br>
+        <br>
+        <b>Conclusão interpretativa:</b> a intenção molda a linguagem; reconhecer a função ajuda a ler “o que o texto quer de mim”.</p><br>
+        <h4>6. Linguagem verbal e não verbal</h4><br>
+        <p>Os textos podem se apresentar de forma verbal (palavras escritas ou faladas), não verbal (imagens, gestos, cores, sons) ou mista (quando há combinação de ambas).</p><br>
+        <p><b>Texto verbal →</b> artigo de opinião, conto, carta.<br>
+        <b>Texto não verbal →</b> placas de trânsito, pinturas, fotografias.<br>
+        <b>Texto misto →</b> charges, propagandas, memes.</p><br>
+        <h5>Exemplo prático:</h5><br>
+        <p>Uma charge política usa linguagem mista: palavras + desenho. A interpretação depende da análise conjunta dos dois elementos.</p><br>
+        <h5>Texto-exemplo (descrição de um cartaz publicitário)</h5><br>
+        <p><b>Imagem (não verbal):</b> fundo azul com gotas; atleta correndo; garrafa destacada com halo brilhante.<br>
+        <b>Texto (verbal):</b> “Energia que acompanha você.”</p><br>
+        <h5>Como interpretar (passo a passo)</h5><br>
+        <p><b>Integração dos códigos:</b> a imagem sugere vitalidade e frescura; o verbal reforça a ideia de companheirismo/constância.<br>
+        <b>Recursos persuasivos:</b> cor azul (associação com água/clean), atleta (desempenho), halo (valorização do produto).</p><br>
+        <p><b>Método:</b></p><br>
+        <ol>
+        <li>Ler a imagem (cores, composição, gesto);</li>
+        <li>Ler o texto verbal (slogan, imperativos, promessas);</li> 
+        <li>Cruzamento: como um elemento potencializa o outro?</li>
+        </ol><br>
+        <p><b>Conclusão interpretativa:</b> o sentido publicitário nasce do conjunto (verbal + visual); separar os códigos empobrece a leitura.</p><br>
+        <h4>7. Estratégias para análise dos elementos textuais</h4><br> 
+        <p><b>Perguntar-se:</b> Quem escreveu? Para quem? Por quê? Onde e quando foi publicado?<br>
+          Observar se o texto é objetivo ou subjetivo.<br>
+          Identificar recursos persuasivos, argumentativos ou estéticos.<br>
+          Relacionar o texto ao contexto social, cultural e histórico.</p><br>
+        <h5>Texto-exemplo (post em blog de tecnologia, abril/2025):</h5><br>
+        <p><b>Título: “Por que "modo escuro" pode reduzir sua fadiga visual (e quando ele atrapalha)”<br>
+          Trecho:</b></p><br> 
+        <p> “Estudos apontam que o modo escuro favorece o conforto em ambientes de pouca luz. Porém, para leitura extensa de textos durante o dia, o contraste reduzido pode aumentar o esforço.”</p><br>
+        <h4>Aplicando o checklist</h4><br> 
+        <ol><br>
+        <li>Quem escreveu (autor)? Blog de tecnologia (possível jornalista ou redator técnico).</li>
+        <p><b>Pista:</b> vocabulário técnico (“contraste”, “ambientes de pouca luz”).</p><br>
+        <li>Para quem (público)? Usuários de tecnologia, leitores de blogs.</li>
+        <p><b>Pista:</b> tema cotidiano de uso de telas.</p><br>
+        <li>Por quê (intenção)? Informar e orientar escolhas de uso do modo escuro.</li>
+        <p><b>Pista:</b> apresenta próls e contras, tom equilibrado.</p><br>
+        <li>Onde (suporte)? Blog (ambiente digital, hipertexto, comentários).</li> 
+        <p><b>Impacto:</b> facilita inserção de links e atualização de conteúdo.</p><br>
+        <li>Quando (contexto)? 2025 → uso massivo de telas; debate sobre ergonomia visual.</li>
+        <p><b>Impacto:</b> relevância do tema e atualização de evidências.</p><br>
+        <li>Gênero: texto expositivo-argumentativo curto (divulga informação técnica com orientação).</li>
+        <p><b>Pista:</b> apresenta “estudos apontam… porém…”.</p><br>
+        <li>Linguagem e marcas: objetividade, conectivos de oposição (“porém”), termos técnicos leves.</li>
+        <li>Sentido global: recomenda uso contextual do modo escuro (bom à noite; com cautela em leituras longas diurnas).</li>
+        </ol><br>
+        <p><b>Conclusão interpretativa:</b></p> o texto busca informar com nuance, orientando decisão prática do leitor; a credibilidade depende de como os “estudos” são referidos (seria ideal citar fontes).</p><br>
+        <h4>Conclusão:</h4><br>
+        <p>O Módulo 2 aprofunda a compreensão da leitura, mostrando que interpretar textos exige muito mais do que decodificar palavras. É necessário entender autor, leitor, gênero, contexto, suporte, intenção comunicativa e linguagem utilizada. Esses elementos funcionam como “pistas” que orientam a interpretação e ampliam a compreensão crítica do leitor.</p>
+
+      <!-- Atividades -->
+      <div class="activities">
+        <div class="activity">Atividade 1</div>
+        <div class="activity">Atividade 2</div>
+        <div class="activity">Atividade 3</div>
+        <div class="activity">Atividade 4</div>
+        <div class="activity">Atividade 5</div>
+      </div>
+    </div>
+
+    <!--Conteúdo do Módulo 3-->
+      <div id="inter-modulo3" class="content">
+        <h2>Módulo 3 - Leitura e Interpretação de Texto</h2>
+        ​<h3>Tema: Coesão, coerência e estratégias argumentativas</h3><br>
+        <h4>​1. O que é coesão textual?<</h4><br>
+        <p>​A coesão é a conexão lógica e gramatical entre as partes de um texto. É ela que cria a "costura" entre as palavras, frases e parágrafos, fazendo com que as ideias fluam de maneira organizada e sem repetições desnecessárias. A coesão pode ser de dois tipos principais:<br>
+        <br>
+        ​<b>Coesão referencial:</b> ocorre quando uma palavra ou expressão retoma (faz referência a) algo que já foi dito no texto. Isso evita a repetição.<br>
+        <b>​Exemplo:</b> "João e Maria foram ao parque. Eles se divertiram muito." (O pronome "eles" retoma "João e Maria".)<br>
+        <br>
+        ​<b>Coesão sequencial:</b> ocorre quando as palavras e expressões (geralmente conjunções ou advérbios) organizam a sequência e a progressão das ideias.<br>
+        <b>​Exemplo:</b> "Estudei a noite toda, portanto, estou preparado para a prova." (O conector "portanto" indica uma relação de conclusão.)<br>
+        <br>
+        ​<b>A importância da coesão:</b> Um texto com boa coesão é mais fácil de ser lido e compreendido, pois as relações entre as ideias ficam claras.</p><br>
+        ​<h4>2. O que é coerência textual?</h4><br>
+        <p>​A coerência é a parte mais abstrata da organização textual. Ela se refere à lógica, à ausência de contradição e à unidade de sentido do texto. A coerência garante que as ideias apresentadas façam sentido em conjunto.<br>
+        <br>
+        <b>​Exemplo de texto incoerente:</b> "Ele comprou um carro novo. O veículo não funciona." (A segunda frase contradiz a ideia de "carro novo" e cria uma falta de lógica, a menos que haja mais informações para explicar a situação.)<br>
+        ​<b>Exemplo de texto coerente:</b> "Ele comprou um carro novo, mas o veículo apresentou um defeito de fábrica e não funciona." (A adição do conector "mas" e da explicação "defeito de fábrica" restaura a coerência.)<br>
+        <br>
+          ​A coerência está ligada ao nosso conhecimento de mundo. Ela é o resultado de uma interpretação que o leitor faz, buscando a lógica nas informações fornecidas.</p><br>
+        ​<h4>3. Diferença entre coesão e coerência</h4><br>
+        <p>​Embora andem juntas, coesão e coerência não são a mesma coisa. Um texto pode ser coeso, mas incoerente.<br>
+        <br>
+        <b>​Exemplo prático:</b> "Eu saí de casa e fui ao banco. Porém, comi uma pizza." (As frases estão gramaticalmente ligadas por conectores ("e", "porém"), ou seja, há coesão. No entanto, a sequência de ideias não faz sentido, não há coerência. Por que ir ao banco e de repente comer uma pizza? Falta uma lógica que as una.)
+          ​Para um texto ser bem-sucedido, ele precisa ter coesão (ligação gramatical) e coerência (unidade de sentido).</p><br>
+          <br>
+        <h4>​4. Estratégias de progressão textual</h4><br>
+        ​<p>Todo texto avança, ou seja, apresenta novas informações. Essa progressão é essencial para que a leitura não seja estática. O leitor precisa sentir que está aprendendo ou descobrindo algo novo a cada parágrafo.
+          ​As principais estratégias usadas pelos autores são:<br>
+        <br>
+        <b>​Adição de novas informações:</b> Introduzir fatos, dados ou exemplos para expandir a ideia central.<br>
+        ​<b>Contraste e comparação:</b> Colocar ideias opostas ou semelhantes lado a lado para destacar diferenças ou similaridades. (Ex.: "Apesar de...", "Em contraste com...")
+          ​Relação de causa e consequência: Explicar o porquê de um evento (causa) e seu resultado (consequência). (Ex.: "porque", "já que", "por isso")<br>
+        ​<b>Enumeração ou listagem:</b> Apresentar itens em sequência para organizar as informações de forma clara.</p><br>
+        ​<h4>5. A identificação do ponto de vista (tese)</h4><br>
+        <p>​Em textos de natureza argumentativa, como artigos de opinião ou redações, é fundamental identificar o ponto de vista do autor, também chamado de tese. A tese é a ideia principal que o autor defende ao longo do texto.
+          ​Estratégias para identificar a tese:<br>
+        <br>
+        <b>​Localizar a tese no início ou no fim do texto:</b> Em muitos textos, a tese é apresentada na introdução e reafirmada na conclusão.<br>
+        <br>
+        ​<b>Identificar os argumentos:</b> Os argumentos são os "alicerces" que sustentam a tese. Se você entender o que o autor usa para defender sua ideia, você encontrará a tese.<br>
+        <br>
+        <b>​Observar a linguagem:</b> Palavras como "em minha opinião", "defendo que", "é evidente que" são pistas que revelam a posição do autor.</p><br>
+        ​<h4>6. Análise de argumentos e contra-argumentos</h4><br>
+        <p>​Um bom leitor não só identifica a tese, mas também a forma como ela é defendida. 
+          O autor pode usar diferentes tipos de argumentos:<br>
+        <br>
+        ​<b>Argumento de autoridade:</b> Citação de um especialista ou de uma fonte confiável para dar peso à sua ideia.<br>
+        ​<b>Argumento por comparação:</b> Usar uma situação similar para ilustrar um ponto.<br>
+        ​<b>Argumento por evidência/dados:</b> Apresentar fatos, estatísticas ou pesquisas para provar algo.<br>
+        ​<b>Argumento por causa e efeito:</b> Relacionar um evento à sua consequência.<br>
+        <br>
+          ​Alguns textos também incluem contra-argumentos, ou seja, ideias contrárias que o autor apresenta para, em seguida, refutá-las e fortalecer sua própria tese.</p><br>
+        ​<h4>Conclusão:</h4><br>
+        <p>​O Módulo 3 aprofundou a análise do texto, mostrando que ele é uma estrutura complexa. A coesão (ligação gramatical) e a coerência (unidade de sentido) são essenciais para que as ideias sejam compreendidas. Além disso, o leitor deve ser capaz de identificar a tese (ponto de vista) do autor e as estratégias argumentativas usadas para defendê-la. Esse conhecimento é crucial para uma leitura verdadeiramente crítica.</p><br>
+
+        <!-- Atividades -->
+      <div class="activities">
+        <div class="activity">Atividade 1</div>
+        <div class="activity">Atividade 2</div>
+        <div class="activity">Atividade 3</div>
+        <div class="activity">Atividade 4</div>
+        <div class="activity">Atividade 5</div>
+      </div>
+      </div>
+
+        <!--Conteúdo do Módulo 4-->
+      <div id="inter-modulo4" class="content">
+      <h2>Módulo 4 - Leitura e Interpretação de Texto</h2>
+      <h3>Tema: Análise crítica e avaliação da informação</h3><br>
+      <h4>1. O que é leitura crítica?</h4><br>
+      <p>A leitura crítica é a capacidade de ir além do que o texto diz explicitamente. 
+        É a habilidade de analisar, questionar e avaliar a mensagem e as intenções do autor. 
+        Em vez de aceitar as informações passivamente, o leitor crítico se pergunta:</p><br>
+      <br>
+      <li>Quais são as intenções do autor?</li>
+      <li>A mensagem é imparcial?</li>
+      <li>O texto apresenta fatos ou opiniões?</li>
+      <li>Que ideias estão implícitas, ou seja, não são ditas diretamente?</li><br>
+      <br>
+      <p>A leitura crítica é uma habilidade fundamental na sociedade atual, cheia de informações e discursos variados.</p><br>
+      <h4>2. Fatos versus opiniões</h4><br>
+      <p>Distinguir fatos de opiniões é um dos pilares da leitura crítica.<br>
+      <br>
+      <b>Fato:</b> É uma informação comprovável, baseada em evidências, dados ou observações. É algo que pode ser verificado como verdadeiro.<br>
+      <b>Exemplo:</b> "A Terra orbita em torno do Sol." (Isso é um fato científico e pode ser comprovado.)<br>
+      <br>
+      <b>Opinião:</b> É uma ideia, crença, julgamento ou ponto de vista pessoal. Não pode ser comprovada.<br>
+      <b>Exemplo:</b> "O verão é a melhor estação do ano." (Isso é uma opinião pessoal e varia de pessoa para pessoa.)<br>
+      <br>
+        É importante notar que um texto pode apresentar fatos e opiniões. 
+        Um artigo de opinião, por exemplo, pode usar fatos para sustentar o ponto de vista do autor.</p><br>
+      <h4>3. Linguagem conotativa e denotativa</h4><br>
+      <p>A forma como as palavras são usadas também influencia a interpretação.<br>
+      <br>
+      <b>Linguagem denotativa:</b> É a linguagem em seu sentido literal, objetivo, direto e de dicionário. 
+        É a mais usada em textos informativos e científicos.<br>
+      <b>Exemplo:</b> "A temperatura está em 30 graus Celsius." (Sentido literal.)<br>
+      <br>
+      <b>Linguagem conotativa:</b> É a linguagem em seu sentido figurado, simbólico ou subjetivo. 
+        É a mais usada em textos literários, poéticos e em publicidade.<br>
+      <b>Exemplo:</b> "Estou fervendo de raiva." (A palavra "fervendo" está no sentido figurado para expressar uma emoção intensa.)<br>
+      <br>
+        Uma leitura atenta deve identificar se o autor está usando palavras em seu sentido literal ou figurado, 
+        pois isso muda a mensagem.</p><br>
+      <h4>4. Recursos de persuasão</h4><br>
+      <p>Em textos argumentativos, os autores usam recursos para convencer o leitor. 
+        O leitor crítico deve ser capaz de reconhecê-los.<br>
+      <br>
+      <b>Apelo emocional (Pathos):</b> O autor tenta tocar os sentimentos do leitor para que ele concorde com a ideia.<br>
+      <b>Credibilidade do autor (Ethos):</b> O autor se posiciona como uma autoridade ou pessoa confiável para que o leitor confie em suas palavras.<br>
+      <b>Lógica e razão (Logos):</b> O autor usa fatos, dados, estatísticas e argumentos lógicos para persuadir.<br>
+      <b>Uso de estereótipos ou generalizações:</b> O autor pode usar ideias preconcebidas sobre grupos de pessoas para simplificar um argumento, 
+        mas isso geralmente é um recurso falacioso.</p><br>
+      <h4>5. O que está implícito?</h4><br>
+      <p>Muitas vezes, a mensagem mais importante não está escrita, mas sim subentendida ou pressuposta.<br>
+      <br>
+      <b>Pressuposto:</b> Uma informação que o autor assume que o leitor já sabe.<br>
+      <b>Exemplo:</b> "João parou de fumar." (Pressuposto: João fumava antes.)<br>
+      <br>
+      <b>Subentendido:</b> Uma ideia que não está explícita, mas que o contexto permite que o leitor deduza.<br>
+      <b>Exemplo:</b> Um político diz: "Em meu governo, o povo será a prioridade." 
+        (Subentendido: O governo anterior não priorizava o povo.)<br>
+      <br>
+        A leitura crítica exige que o leitor identifique essas entrelinhas 
+        para uma compreensão completa e para evitar manipulações.</p><br>
+      <h4>6. Avaliando a credibilidade da fonte</h4><br>
+      <p>Na era da internet, a capacidade de avaliar a confiabilidade de um texto é crucial. 
+        Ao analisar uma fonte, o leitor deve se perguntar:</p><br>
+      <br>
+      <li>Quem é o autor? Ele é um especialista no assunto?</li>
+      <li>Qual é a fonte? É um veículo de comunicação sério ou um site desconhecido?</li>
+      <li>Qual é a data de publicação? A informação pode estar desatualizada?</li>
+      <li>O texto apresenta referências ou dados para sustentar as informações?</li><br>
+      <h4>Conclusão:</h4><br>
+      <p>O Módulo 4 leva a leitura para um nível superior. 
+        A leitura crítica é uma ferramenta poderosa que nos permite questionar o texto, 
+        identificar fatos e opiniões, analisar o uso da linguagem (denotativa e conotativa) 
+        e reconhecer recursos de persuasão. 
+        Além disso, a capacidade de identificar informações implícitas e de avaliar a credibilidade da fonte 
+        são essenciais para navegar no mundo da informação com mais segurança e discernimento.</p><br>
+
+         <!-- Atividades -->
+      <div class="activities">
+        <div class="activity">Atividade 1</div>
+        <div class="activity">Atividade 2</div>
+        <div class="activity">Atividade 3</div>
+        <div class="activity">Atividade 4</div>
+        <div class="activity">Atividade 5</div>
+      </div>
+        </div>
+
+
+        <!-- Conteúdo do Módulo 1 -->
+    <div id="lingui-modulo1" class="content">
+
+        <h2>Módulo 1 - Fundamentos da Linguística</h2><br>
+        <h3>Introdução</h3><br>
+        <p>Este módulo foi projetado para ser a sua porta de entrada para a Linguística, a fascinante ciência que estuda a linguagem humana. Em vez de simplesmente decorar regras, você vai entender como a língua realmente funciona, como ela é usada e por que é tão poderosa. Ao final deste módulo, você será capaz de diferenciar língua, linguagem e fala, entender a estrutura do signo linguístico e identificar as funções da linguagem em diferentes situações de comunicação.</p><br>
+        <h3>1. O que é Linguística?</h3><br>
+        <p>A Linguística é a ciência que estuda a linguagem humana em toda a sua diversidade e complexidade. Ela não se limita a dizer o que é "certo" ou "errado", mas investiga o que é possível dentro de um sistema linguístico. O linguista se pergunta: como a língua se organiza? Como ela muda ao longo do tempo? Por que falamos do jeito que falamos?</p><br>
+        <h4>Áreas de Estudo da Linguística</h4><br>
+        <p>As duas grandes vertentes da Linguística são:</p><br>
+        <b>Linguística Teórica:</b> Concentra-se na estrutura interna e nos princípios universais da linguagem. É a base de todo o conhecimento linguístico.<br>
+        <b>Exemplos Práticos:</b><br>
+        <li><b>Fonologia:</b> Estuda os sons que criam sentido. Pense nas palavras "faca" e "vaca". A Fonologia explica que a troca de um único som (o "f" pelo "v") muda completamente o significado.<br>
+          Outro exemplo: "copo" e "copõ" (forma nasalizada). O som muda e altera a compreensão da palavra.</li><br>
+        <li><b>Sintaxe:</b> Analisa a ordem das palavras na frase. A Sintaxe mostra que a frase "O cachorro mordeu o carteiro" não tem o mesmo significado que "O carteiro mordeu o cachorro", mesmo usando as mesmas palavras. A ordem importa.<br>
+          Outro exemplo: "Comi ontem pizza" soa estranho, mas "Ontem comi pizza" segue a norma.</li><br>
+        <b>Linguística Aplicada:</b> Usa o conhecimento teórico para resolver problemas práticos da sociedade.<br>
+        <b>Exemplos Práticos:</b><br>
+        <li><b>Ensino de Línguas Estrangeiras:</b> O linguista aplicado desenvolve métodos para ensinar idiomas de forma mais eficaz, como o foco em conversação e não apenas em gramática.<br>
+          Outro exemplo: métodos bilíngues para crianças em escolas internacionais.</li><br>
+        <li><b>Processamento de Linguagem Natural (PNL):</b> É a base tecnológica de ferramentas como o Google Tradutor ou a Siri, que processam e compreendem a linguagem humana.<br>
+          Outro exemplo: sistemas de chatbots que respondem perguntas automaticamente em sites de atendimento.</li><br>
+        <h3>2. Língua, Linguagem e Fala (Ferdinand de Saussure)</h3><br>
+        <p>O linguista suíço Ferdinand de Saussure (1857-1913) fez uma distinção fundamental que se tornou a base da Linguística Moderna.</p><br>
+        <b>Linguagem:</b> É a capacidade universal e inata de se comunicar. Todo ser humano nasce com essa habilidade, seja através da fala, gestos ou escrita. É um conceito muito amplo.<br>
+        <b>Exemplo Prático:</b> A capacidade de um bebê de balbuciar e expressar suas necessidades por meio do choro é uma manifestação da linguagem. A comunicação por Libras (Língua Brasileira de Sinais) também é uma forma de linguagem.<br>
+          Outro exemplo: danças de abelhas para indicar a localização de flores também são manifestações de linguagem (não humana).<br><br>
+        <b>Língua:</b> É o sistema social e coletivo de signos que uma comunidade compartilha para se comunicar. Pense nela como um código abstrato, um conjunto de regras gramaticais e de vocabulário que a sociedade estabelece.<br>
+        <b>Exemplo Prático:</b> O português do Brasil, o espanhol da Argentina e o inglês dos Estados Unidos são exemplos de línguas. Quando você estuda um idioma, está aprendendo a língua.<br>
+          Outro exemplo: o latim foi uma língua usada em diversas regiões, que se fragmentou em várias outras (português, francês, italiano).<br><br>
+        <b>Fala:</b> É a realização individual e concreta da língua. É a maneira como cada pessoa usa o sistema da língua. A fala é cheia de variações, sotaques, gírias e entonações.<br>
+        <b>Exemplo Prático:</b> Um gaúcho, um baiano e um paulistano falam a mesma língua (o português), mas a fala de cada um é única devido ao sotaque, ao ritmo e às expressões regionais.<br>
+          Outro exemplo: duas pessoas podem usar a mesma língua em registros diferentes, uma de forma formal ("Vossa Senhoria") e outra informal ("Você").<br><br>
+        <h3>3. O Signo Linguístico (Saussure)</h3><br>
+        <p>Para Saussure, a unidade básica de qualquer língua é o signo linguístico. Ele é como uma moeda de duas faces inseparáveis: o som e a ideia.</p><br>
+        <b>Significante:</b> A forma material do signo. É o que você ouve ou escreve.<br>
+        <b>Exemplo Prático:</b> A sequência de letras "C-A-S-A" ou os sons que a formam.<br>
+          Outro exemplo: o desenho de um coração (❤️) usado em mensagens.<br><br>
+        <b>Significado:</b> O conceito ou a ideia que o significante representa. É a imagem mental que a palavra evoca.<br>
+        <b>Exemplo Prático:</b> A ideia de uma moradia, abrigo, lar.<br>
+          Outro exemplo: o símbolo (❤️) pode significar "amor" ou "paixão".<br><br>
+        <h4>Características do Signo Linguístico</h4><br>
+        <b>Arbitrariedade:</b> A relação entre o som e a ideia não é natural nem lógica. A palavra "sol" não se parece em nada com o astro. A relação é puramente uma convenção social.<br>
+        <b>Exemplo Prático:</b> Em português, dizemos "árvore"; em inglês, "tree"; em francês, "arbre". Se a relação fosse natural, todos os idiomas usariam a mesma palavra para o mesmo objeto.<br>
+          Outro exemplo: a palavra "dog" não tem relação direta com o animal cachorro, mas é entendida socialmente.<br><br>
+        <b>Linearidade:</b> O signo linguístico se organiza em uma sequência temporal. As palavras e os sons são pronunciados um após o outro, em uma linha.<br>
+        <b>Exemplo Prático:</b> Para dizer a frase "Ana comprou um bolo", as palavras precisam ser ditas nessa ordem. Você não pode pronunciá-las todas de uma vez, e se trocar a ordem para "Bolo comprou um Ana", a mensagem perde o sentido.<br>
+          Outro exemplo: a palavra "amor" não pode ser dita como "roma" sem mudar completamente o sentido.<br><br>
+        <h3>4. Funções da Linguagem (Roman Jakobson)</h3><br>
+        <p>O linguista russo Roman Jakobson (1896-1982) propôs que, em qualquer ato de comunicação, a mensagem pode ter um foco principal. Ele identificou seis funções, cada uma relacionada a um dos elementos do ato comunicativo.</p><br>
+        <b>Função Referencial (ou Denotativa):</b> Foco no contexto. O objetivo é transmitir informação de forma objetiva e direta.<br>
+        <b>Exemplo Prático:</b> Uma notícia de jornal: "O presidente assinou a nova lei hoje à tarde."<br>
+          Outro exemplo: um manual de instruções que explica como montar um móvel.<br><br>
+        <b>Função Emotiva (ou Expressiva):</b> Foco no emissor. O objetivo é expressar sentimentos, emoções e a subjetividade de quem fala.<br>
+        <b>Exemplo Prático:</b> Um desabafo: "Estou exausto! Que dia péssimo!"<br>
+          Outro exemplo: "Estou tão feliz, foi o melhor dia da minha vida!"<br><br>
+        <b>Função Conativa (ou Apelativa):</b> Foco no receptor. O objetivo é influenciar, persuadir ou dar uma ordem. Usa verbos no imperativo.<br>
+        <b>Exemplo Prático:</b> Uma propaganda: "Compre agora e ganhe 50% de desconto!" ou a ordem de um pai para o filho: "Arrume seu quarto, por favor."<br>
+          Outro exemplo: "Vote consciente, escolha o melhor para o futuro."<br><br>
+        <b>Função Fática:</b> Foco no canal de comunicação. O objetivo é testar ou manter o contato.<br>
+        <b>Exemplo Prático:</b> A conversa inicial no telefone: "Alô? Tá me ouvindo?" ou perguntas como "Tudo bem?" que servem apenas para iniciar uma interação.<br>
+          Outro exemplo: expressões como "oi", "né?", "aham" usadas para manter a conversa fluindo.<br><br>
+        <b>Função Metalinguística:</b> Foco no código/língua. O objetivo é usar a própria língua para falar sobre ela mesma. Ocorre em dicionários e gramáticas.<br>
+        <b>Exemplo Prático:</b> A frase: "A palavra 'substantivo' é um substantivo." ou "'Linguística' é a ciência que estuda a linguagem."<br>
+          Outro exemplo: "O plural de 'cão' é 'cães'."<br><br>
+        <b>Função Poética:</b> Foco na mensagem em si, na sua forma e estética. O que importa é a beleza da linguagem, o jogo de palavras.<br>
+        <b>Exemplo Prático:</b> A poesia: "No meio do caminho tinha uma pedra / Tinha uma pedra no meio do caminho." (Carlos Drummond de Andrade). A repetição das palavras é intencional para dar ênfase e ritmo.<br>
+          Outro exemplo: slogans criativos como "Viver sem fronteiras".<br><br>
+        <h3>Conclusão</h3><br>
+        <p>Neste módulo, você aprendeu que a Linguística é a ciência que investiga a linguagem em sua essência. Você entendeu a diferença crucial entre a linguagem (nossa capacidade universal de nos comunicar), a língua (o sistema social que usamos) e a fala (nossa realização individual desse sistema). Além disso, exploramos a estrutura do signo linguístico, a unidade fundamental da comunicação, e conhecemos as seis funções da linguagem de Jakobson, que nos ajudam a entender os diferentes propósitos de uma mensagem.</p><br>
+        <p>Com esses conceitos, você tem a base sólida para aprofundar seus estudos e enxergar a linguagem não apenas como um conjunto de regras, mas como o sistema vivo e dinâmico que molda a nossa comunicação.</p><br>
+
+          <!-- Atividades -->
+        <div class="activities">
+        <div class="activity">Atividade 1</div>
+        <div class="activity">Atividade 2</div>
+        <div class="activity">Atividade 3</div>
+        <div class="activity">Atividade 4</div>
+        <div class="activity">Atividade 5</div>
+        </div>
+    </div>
+
+    <!-- Conteúdo do Módulo 2 -->
+    <div id="lingui-modulo2" class="content">
+
+<h2>Módulo 2 - Estrutura e Variação da Língua</h2><br>
+<h3>Introdução</h3><br>
+<p>Após compreender os fundamentos da Linguística no Módulo 1, vamos agora mergulhar na estrutura interna da língua. Este módulo vai desvendar como os sons, palavras e frases se organizam para criar sentido. Você vai entender que a língua não é um bloco monolítico, mas um sistema dinâmico e complexo, com regras e variações que a tornam viva e em constante transformação.</p><br>
+<h3>1. Fonética e Fonologia (Os Sons da Fala)</h3><br>
+<p>Aqui, a Linguística se debruça sobre os sons da língua, mas sob duas perspectivas diferentes.</p><br>
+<h4>• Fonética:</h4><br>
+<p>Estuda os sons da fala de forma física e concreta. Ela se preocupa com a produção, a acústica e a percepção dos sons. É a ciência que descreve como as nossas cordas vocais, língua, lábios e dentes trabalham para produzir cada som.</p><br>
+<b>Exemplo Prático:</b> A fonética descreve a diferença física entre o som do "p" em "pato" e o som do "p" em "apto" (em muitos dialetos, o primeiro tem uma pequena explosão de ar, enquanto o segundo é mais suave). Ela também explica a diferença na pronúncia do "R" em "porta" no interior de São Paulo (caipira) e no Rio de Janeiro (carioca).<br>
+<i>Exemplo extra: A diferença entre o som de “s” em “casa” (sonoro) e em “sapo” (surdo).</i><br><br>
+<h4>• Fonologia:</h4><br>
+<p>Estuda os sons de uma língua de forma funcional e abstrata. Ela se preocupa com os fonemas — os sons que, quando trocados, criam uma nova palavra e, portanto, um novo significado. O foco não é o som em si, mas a sua função dentro do sistema da língua.</p><br>
+<b>Exemplo Prático:</b> O par de palavras "vaca" e "faca". A única diferença entre elas é a troca do fonema /v/ pelo fonema /f/. A fonologia explica que, no português, /v/ e /f/ são fonemas diferentes, pois essa troca cria uma nova palavra. Já a diferença entre a pronúncia de "R" em "porta" (interior de SP vs. RJ) não muda o significado da palavra; por isso, são variações de um mesmo fonema, e não novos fonemas.<br>
+<i>Exemplo extra: “mala” e “nala”: a troca de /m/ por /n/ gera palavras diferentes, mostrando que são fonemas distintos.</i><br><br>
+<h3>2. Morfologia (A Formação das Palavras)</h3><br>
+<p>A Morfologia é a parte da Linguística que investiga a estrutura interna das palavras e como elas são formadas. A unidade básica da morfologia é o morfema, a menor unidade da língua que possui um significado.</p><br>
+<h4>• Exemplos Práticos de Morfemas:</h4><br>
+<b>Radical (ou Raiz):</b> Contém o significado principal da palavra.<br>
+<b>Em "pedra", "pedreiro" e "pedregulho", o radical é pedr-. </b><br>
+<i>Exemplo extra: Em “amor”, “amoroso” e “amorzinho”, o radical é amor-.</i><br><br>
+<b>Afixos (Prefixos e Sufixos):</b> Morfemas que se unem ao radical para formar novas palavras.<br>
+<b>Prefixo (antes do radical):</b> Em "infeliz", o prefixo in- adiciona a ideia de negação.<br>
+<i>Exemplo extra: Em “desfazer”, o prefixo des- indica ação contrária.</i><br><br>
+<b>Sufixo (depois do radical):</b> Em "felizmente", o sufixo -mente transforma o adjetivo em advérbio.<br>
+<i>Exemplo extra: Em “livraria”, o sufixo -aria indica lugar.</i><br><br>
+<b>Desinências:</b> Indicam flexões gramaticais, como gênero, número, tempo e modo.<br>
+<b>Em "meninos", a desinência -os indica plural e gênero masculino.</b><br>
+<b>Em "cantávamos", a desinência -ávamos indica tempo, modo e pessoa (1ª pessoa do plural do pretérito imperfeito do indicativo).</b><br>
+<i>Exemplo extra: Em “bonitas”, a desinência -as indica plural e gênero feminino.</i><br><br>
+<h3>3. Sintaxe (A Estrutura das Frases)</h3><br>
+<p>A Sintaxe estuda como as palavras se combinam para formar frases e orações. Ela é responsável pelas regras que garantem que as sentenças sejam gramaticais e façam sentido.</p><br>
+<h4>• Exemplos Práticos:</h4><br>
+<b>Ordem Correta:</b> A Sintaxe explica que a frase "O gato comeu o rato" é compreensível porque segue a ordem padrão Sujeito-Verbo-Objeto do português.<br>
+<b>Ordem Incorreta:</b> A frase "Rato o comeu gato o" não faz sentido porque viola a sintaxe do português.<br>
+<i>Exemplo extra: “Maria comprou um livro novo” é sintaticamente correta, enquanto “Comprou Maria livro um novo” soa estranha no português padrão.</i><br><br>
+<h4>• Sintaxe e Ambiguidade:</h4><br>
+<p>A Sintaxe também ajuda a entender por que algumas frases têm mais de um significado.</p><br>
+<b>Considere a frase:</b> "O garoto viu o homem com um binóculo."<br>
+<b>Interpretação 1:</b> O garoto usou o binóculo para ver o homem.<br>
+<b>Interpretação 2:</b> O garoto viu um homem que estava com um binóculo.<br>
+<p>A Sintaxe, junto com a entonação ou o contexto, ajuda a desambiguar a frase.</p><br>
+<i>Exemplo extra: “João disse para Pedro estudar.” — Ambiguidade: foi João quem pediu para Pedro estudar, ou João disse isso para que Pedro pedisse a outro estudar?</i><br><br>
+<h3>4. Variação Linguística e Gramática</h3><br>
+<p>Um conceito central da Linguística é que a língua não é fixa, mas sim um fenômeno dinâmico que varia constantemente. A Linguística estuda essa variação e a considera natural e normal, em vez de um "erro".</p><br>
+<h4>• Variação Geográfica (Dialetos):</h4><br>
+<p>Diferenças na fala em diferentes regiões.</p><br>
+<b>Exemplo Prático:</b> A palavra "mandioca" pode ser conhecida como "aipim" no Rio de Janeiro, "macaxeira" no Nordeste e "maniva" em algumas partes do Norte. Todas se referem ao mesmo tubérculo.<br>
+<i>Exemplo extra: O “busão” em São Paulo corresponde ao “coletivo” em algumas partes do Nordeste.</i><br><br>
+<h4>• Variação Social (Socioletos):</h4><br>
+<p>Diferenças na fala entre grupos sociais (idade, classe social, profissão).</p><br>
+<b>Exemplo Prático:</b> A gíria "tá ligado?" é comum entre os jovens, enquanto um advogado pode usar jargões como "data vênia" ou "reiterar" em seu ambiente de trabalho.<br>
+<i>Exemplo extra: Adolescentes usam “cringe” para falar de algo vergonhoso, enquanto isso não aparece em discursos formais.</i><br><br>
+<h4>• Variação Histórica:</h4><br>
+<p>As mudanças na língua ao longo do tempo.</p><br>
+<b>Exemplo Prático:</b> A palavra "você" evoluiu de "vossa mercê" e, hoje, em mensagens de celular, pode ser reduzida a apenas "vc" ou "cê".<br>
+<i>Exemplo extra: O português antigo usava formas como “per” (por) e “mui” (muito), hoje substituídas.</i><br><br>
+<h3>Gramática Normativa vs. Gramática Descritiva</h3><br>
+<p>Essa distinção é crucial para entender a Linguística:</p><br>
+<b>• Gramática Normativa:</b> É a gramática que todos aprendemos na escola. Ela estabelece um conjunto de regras consideradas "corretas" ou "padrão" para a língua. Seu objetivo é prescrever (dizer o que se deve usar).<br>
+<b>Exemplo Prático:</b> A regra de que a palavra "nós" deve ser seguida do verbo no plural ("nós fomos", e não "nós foi").<br>
+<i>Exemplo extra: A norma que exige o uso de “para mim” apenas como objeto, e não como sujeito (“para mim, estudar é importante” é normativo; “mim estudou” é considerado incorreto).</i><br><br>
+<b>• Gramática Descritiva:</b> É o que a Linguística realmente estuda. Ela descreve como a língua é realmente usada pelos falantes, sem julgamentos de valor. Seu objetivo é entender e registrar o fenômeno linguístico em todas as suas variações.<br>
+<b>Exemplo Prático:</b> A Linguística descritiva observa que, em grande parte do Brasil, as pessoas dizem "a gente fomos" ou "nós foi" no dia a dia. Em vez de dizer que isso é "errado", ela descreve a regra que rege essa forma de falar.<br>
+<i>Exemplo extra: O uso de “onde” para se referir a situações (“É uma fase onde estou aprendendo muito”) é comum na fala, embora a gramática normativa prefira “em que”.</i><br><br>
+<h3>Conclusão</h3><br>
+<p>Neste módulo, você aprendeu que a língua é um sistema estruturado em diferentes níveis. A Fonologia organiza os sons que criam sentido, a Morfologia constrói as palavras a partir de unidades menores, e a Sintaxe organiza as palavras em frases. Por fim, você descobriu que todas essas estruturas estão em constante movimento devido à variação linguística, que mostra como a língua se adapta ao tempo, aos lugares e às pessoas.</p><br>
+<p>Com esses conceitos, você tem agora uma compreensão mais profunda dos mecanismos que tornam a comunicação humana possível e uma nova perspectiva sobre a relação entre o que a língua é e o que ela deveria ser.</p><br>
+
+       <!-- Atividades -->
+        <div class="activities">
+        <div class="activity">Atividade 1</div>
+        <div class="activity">Atividade 2</div>
+        <div class="activity">Atividade 3</div>
+        <div class="activity">Atividade 4</div>
+        <div class="activity">Atividade 5</div>
+        </div>
+    </div>
+
+    <!-- Conteúdo do Módulo 3 -->
+    <div id="lingui-modulo3" class="content">
+
+<h2>Módulo 3 - Significado e Uso da Língua</h2><br>
+
+<h3>Introdução</h3><br>
+<p>Nos Módulos 1 e 2, você aprendeu sobre os alicerces da Linguística e a estrutura interna da língua — dos sons que criam significado à formação de palavras e frases. Agora, vamos aprofundar nossa jornada, explorando o coração da comunicação: o significado e a forma como usamos a língua em contexto. Este módulo vai te apresentar a Semântica e a Pragmática, as áreas que nos ajudam a entender não apenas o que as palavras e frases significam literalmente, mas também o que queremos dizer com elas.</p><br>
+
+<h3>1. Semântica (O Estudo do Significado)</h3><br>
+<p>A Semântica é a área da Linguística que estuda o significado em diferentes níveis, desde o das palavras até o das sentenças. Ela nos ajuda a analisar a relação entre os signos e os conceitos que eles representam.</p><br>
+
+<h4>• Relações de Significado entre Palavras</h4><br>
+
+<b>Sinonímia:</b> Relação entre palavras com significados semelhantes. Sinônimos nem sempre são totalmente intercambiáveis, dependendo do contexto.<br>
+<b>Exemplos Práticos:</b><br>
+<li>Casa e moradia.</li>
+<li>Lindo e bonito.</li>
+<li>Feliz e alegre.</li>
+<li>Médico e doutor.</li>
+<li>Criança e menino.</li><br>
+
+<b>Antonímia:</b> Relação entre palavras de significados opostos. Existem diferentes tipos de antônimos:<br>
+<li><b>Antônimos Graduais:</b> Admitem diferentes graus (ex: quente e frio; pode ser "muito quente", "meio quente", "muito frio").</li>
+<li><b>Antônimos Complementares:</b> A negação de um implica o outro (ex: vivo e morto; se não está vivo, está morto).</li>
+<li><b>Antônimos Conversos:</b> Descrevem a mesma situação a partir de perspectivas opostas (ex: comprar e vender).</li><br>
+
+<b>Polissemia:</b> Quando uma mesma palavra tem vários significados que são relacionados entre si.<br>
+<b>Exemplos Práticos:</b><br>
+<li>Manga: a fruta e a parte da roupa. A relação é pela forma alongada.</li>
+<li>Linha: fio de costura, fila de pessoas, traço no papel. A ideia de "traço contínuo" une os sentidos.</li>
+<li>Cabeça: parte do corpo, líder de um grupo, parte de uma mesa.</li><br>
+
+<b>Homonímia:</b> Quando palavras têm a mesma forma (som ou grafia), mas significados diferentes e não relacionados.<br>
+<b>Exemplos Práticos:</b><br>
+<li>Banco: assento e instituição financeira.</li>
+<li>Cedo: verbo (de ceder) e advérbio de tempo.</li>
+<li>Canto: substantivo (esquina) e verbo (de cantar).</li>
+<li>Foca: animal e verbo focar.</li><br>
+
+<b>Hiponímia e Hiperonímia:</b> A relação entre um termo mais específico (hipônimo) e um mais geral (hiperônimo).<br>
+<b>Exemplos Práticos:</b><br>
+<li>Cachorro é um hipônimo de animal.</li>
+<li>Carro é um hipônimo de veículo.</li>
+<li>Verdura é um hiperônimo de alface.</li>
+<li>Rosa é hipônimo de flor.</li>
+<li>Futebol é hipônimo de esporte.</li><br>
+
+<h3>2. Pragmática (O Estudo do Uso e do Contexto)</h3><br>
+<p>A Pragmática vai além da Semântica e se concentra no uso da língua em situações reais. Ela estuda como o contexto, a intenção do falante e o conhecimento mútuo afetam o significado.</p><br>
+
+<h4>• Conceitos Fundamentais da Pragmática</h4><br>
+
+<b>Atos de Fala (Speech Acts):</b><br>
+<p>A Pragmática, inspirada em pensadores como Austin e Searle, vê a linguagem como uma forma de ação. Ao falar, estamos fazendo algo. Um ato de fala tem três partes:</p>
+<li><b>Ato Locucionário:</b> O ato de dizer algo (sons, palavras e gramática).</li>
+<li><b>Ato Ilocucionário:</b> A intenção do falante.</li>
+<li><b>Ato Perlocucionário:</b> O efeito que o ato causa no ouvinte.</li><br>
+<b>Exemplo Prático:</b> Alguém diz "Pode me passar o sal?"<br>
+<i>Locucionário:</i> a simples pronúncia da frase.<br>
+<i>Ilocucionário:</i> intenção → pedido.<br>
+<i>Perlocucionário:</i> efeito → o ouvinte passa o sal.<br><br>
+<b>Outro Exemplo:</b> Um juiz dizendo "Está condenado a 5 anos de prisão" — a fala não só informa, mas produz um efeito real (a condenação).<br><br>
+
+<b>Máximas Conversacionais (de Grice):</b><br>
+<p>Para uma conversa ser cooperativa, os falantes seguem quatro princípios básicos.</p>
+<li>Máxima de Quantidade: Dê a informação necessária, nem mais nem menos.</li>
+<li>Máxima de Qualidade: Diga a verdade.</li>
+<li>Máxima de Relevância: Seja relevante ao tópico.</li>
+<li>Máxima de Modo: Seja claro e evite ambiguidades.</li><br>
+<b>Exemplo Prático:</b><br>
+<li>Pergunta: "Onde você estava ontem à noite?"</li>
+<li>Resposta direta (cooperação): "Estava em casa."</li>
+<li>Resposta violando a máxima de relevância: "Ontem à noite a lua estava bonita."</li><br>
+<b>Violação humorística:</b><br>
+<li>Amigo pergunta: "Gostou do bolo que eu fiz?"</li>
+<li>Resposta: "Que bolo? Eu não sabia que aquilo era um bolo!" → violação da máxima de qualidade para ironizar.</li><br>
+
+<b>Pressuposição e Implicatura:</b><br>
+<li><b>Pressuposição:</b> Informação que é dada como verdadeira e que não pode ser negada sem que a frase se torne estranha.</li>
+<b>Exemplos Práticos:</b><br>
+<li>"João parou de fumar." → pressupõe que João fumava antes.</li>
+<li>"Maria voltou para o Brasil." → pressupõe que Maria já esteve no Brasil antes.</li><br>
+
+<li><b>Implicatura:</b> Informação inferida a partir do contexto e da forma como algo é dito.</li>
+<b>Exemplos Práticos:</b><br>
+<li>Em um quarto com a janela aberta, a frase "Está muito frio aqui." pode implicar "Feche a janela".</li>
+<li>Situação: João pergunta "Você vai à festa?" — Maria responde: "Tenho que acordar cedo amanhã." → implicatura: Maria não vai à festa.</li><br>
+
+<h3>Conclusão</h3><br>
+<p>Neste módulo, você deu um passo crucial para entender a linguagem de forma mais completa. A Semântica nos ensinou que o significado é uma propriedade interna da língua, com relações lógicas entre as palavras. A Pragmática nos mostrou que esse significado é apenas o ponto de partida, pois a comunicação real depende do contexto, da intenção e das regras sociais da interação.</p><br>
+
+<p>Juntas, essas duas áreas nos permitem ir além da estrutura e realmente compreender como a língua funciona no mundo real, como uma ferramenta viva de interação humana. Com os três módulos, você tem agora uma base sólida para aprofundar seus estudos em Linguística.</p><br>
+      <!-- Atividades -->
+        <div class="activities">
+        <div class="activity">Atividade 1</div>
+        <div class="activity">Atividade 2</div>
+        <div class="activity">Atividade 3</div>
+        <div class="activity">Atividade 4</div>
+        <div class="activity">Atividade 5</div>
+        </div>
+    </div>
+
+    <!-- Conteúdo do Módulo 4 -->
+    <div id="lingui-modulo4" class="content">
+      <h2>Módulo 4 - Variação, Mudança e Aquisição da Língua</h2><br>
+<h3>Introdução</h3><br>
+<p>Após explorar a estrutura (Módulo 2) e o significado (Módulo 3) da língua, este módulo se aprofunda em como a linguagem se comporta em contextos reais. Vamos entender que a língua não é uma entidade fixa, mas um sistema vivo, que varia de acordo com o ambiente, muda com o tempo e é adquirido de forma quase mágica por cada ser humano na infância. Você vai conhecer a Sociolinguística, a Linguística Histórica e a Aquisição da Linguagem.</p><br>
+<h3>1. Variação Linguística e Padrões</h3><br>
+<p>A variação linguística é a diferença de formas de falar dentro de uma mesma língua. Essa variação é natural e ocorre em diversos níveis.</p><br>
+<h4>Variação Geográfica (Dialetos)</h4><br>
+<p>Diferenças de fala entre regiões.</p><br>
+<ul>
+  <b>Exemplos Práticos:</b>
+  <li>A palavra "mandioca" é chamada de "aipim" no Rio de Janeiro, "macaxeira" no Nordeste e "maniva" em partes do Norte.</li>
+  <li>A pronúncia do "R" em "porta" varia entre o interior de SP (som de "R" retroflexo) e o Rio de Janeiro (som de "R" guttural, aspirado).</li>
+  <li>O uso de "ônibus" ou "coletivo" para o mesmo veículo depende da região do Brasil.</li>
+</ul><br>
+<h4>Variação Social (Socioletos)</h4><br>
+<p>Diferenças de fala entre grupos sociais, idades ou profissões.</p><br>
+<ul>
+  <b>Exemplos Práticos:</b>
+  <li>Jovens usam gírias como "tá ligado?" ou "tamo junto", que não são comuns em conversas de pessoas mais velhas.</li>
+  <li>Advogados usam termos técnicos como "data vênia"; médicos têm seus próprios jargões.</li>
+  <li>Em grupos de gamers, palavras como "respawn" ou "buff" são comuns, mas podem não ser compreendidas por pessoas fora desse grupo.</li>
+</ul><br>
+<h4>Gramática Normativa vs. Gramática Descritiva</h4><br>
+<p>A Linguística, em vez de julgar essas variações, as descreve.</p><br>
+<ul>
+  <li><b>Gramática Normativa:</b> É a gramática padrão ensinada na escola. Ela estabelece as regras consideradas "corretas" pela norma culta e serve para padronizar a língua, especialmente na escrita formal.</li>
+  <b>Exemplo:</b> "Nós fomos ao cinema."
+  <li><b>Gramática Descritiva:</b> É a gramática que a Linguística estuda. Ela descreve como os falantes realmente usam a língua, sem juízo de valor.</li>
+  <b>Exemplo:</b> A gramática descritiva observa que, na fala cotidiana, a frase "A gente fomos ao cinema" é comum em várias partes do Brasil. Ela busca entender a regra por trás dessa forma de falar.
+</ul><br>
+<h3>2. Mudança e Contato Linguístico</h3>
+<p>A língua é um fenômeno histórico que muda constantemente. O estudo dessas mudanças é chamado de Linguística Histórica (ou diacrônica).</p><br>
+<h4>Mudança Fonética</h4><br>
+<p>A evolução dos sons de uma língua.</p>
+<ul><br>
+  <li><b>Exemplo:</b> A palavra latina <i>lacte</i> (leite) evoluiu para o espanhol <i>leche</i> e o português <i>leite</i>, mostrando como o som original mudou de forma diferente em cada língua.</li>
+</ul><br>
+<h4>Mudança Morfológica e Sintática</h4><br>
+<p>A evolução da estrutura das palavras e das frases.</p><br>
+<ul>
+  <li><b>Exemplo:</b> A expressão "vossa mercê" evoluiu para "vosmecê" e, finalmente, para o "você" que usamos hoje, mostrando a simplificação e fusão das palavras.</li>
+  <li><b>Exemplo adicional:</b> O uso de “tu és” em português europeu versus “você é” no português brasileiro mostra mudança e variação sintática entre variantes da mesma língua.</li>
+</ul><br>
+<h4>Mudança Semântica</h4><br>
+<p>A evolução do significado das palavras.</p>
+<ul><br>
+  <li><b>Exemplo:</b> A palavra "vilão" na Idade Média se referia apenas a um "homem da vila". Com o tempo, por associações negativas, o significado mudou para uma pessoa "má" ou "perversa".</li>
+  <li><b>Exemplo adicional:</b> A palavra "computador" antes significava “aquele que calcula”; hoje, refere-se à máquina eletrônica que usamos para diversas tarefas.</li>
+</ul><br>
+<h4>Contato Linguístico</h4><br>
+<p>Quando línguas entram em contato, surgem fenômenos de empréstimos ou criação de novas línguas.</p><br>
+<ul>
+  <li><b>Empréstimos Lexicais:</b> Palavras de uma língua que são incorporadas por outra.</li>
+  <li><b>Exemplo:</b> Muitas palavras no português vêm do inglês: "shopping", "delivery", "mouse", "esporte".</li>
+  <li><b>Criação de novas línguas (Crioulos):</b> Em situações de contato intenso, novas línguas podem surgir.</li>
+  <li><b>Exemplo:</b> O crioulo cabo-verdiano, que surge da mistura do português com línguas africanas locais.</li>
+</ul><br>
+<h3>3. Aquisição da Linguagem</h3>
+<p>A Aquisição da Linguagem é a área que estuda como o ser humano aprende a falar, um processo que continua sendo um dos maiores mistérios da ciência.</p><br>
+<h4>Processo Natural</h4><br>
+<p>A maioria das crianças aprende sua língua materna sem aulas formais ou esforço consciente. Elas não precisam de regras de gramática para formar frases complexas.</p><br>
+<ul>
+  <li><b>Exemplo:</b> Um bebê que diz "água" quando quer beber, aprendendo a palavra apenas pela experiência e contexto.</li>
+  <li><b>Exemplo adicional:</b> Crianças pequenas combinam palavras de forma criativa, como "mamãe bola" para dizer que a mãe está segurando a bola.</li>
+</ul><br>
+<h4>Teoria Inatista (Noam Chomsky)</h4><br>
+<p>Propõe que o cérebro humano tem uma capacidade inata para a linguagem, chamada de Dispositivo de Aquisição da Linguagem (DAL). Segundo essa teoria, as crianças já nascem com um "mapa" para a gramática universal, e a experiência com a língua apenas ativa esse mapa.</p><br>
+<ul>
+  <li><b>Exemplo:</b> Mesmo sem ensino formal, crianças de diferentes culturas aprendem regras de sintaxe básicas da própria língua.</li>
+  <li><b>Exemplo adicional:</b> Crianças expostas a uma língua de sinais desenvolvem gramática própria, mostrando que a aquisição é inata e não depende do meio falado.</li>
+</ul><br>
+<h3>Conclusão</h3><br>
+<p>Neste módulo, você descobriu que a língua não é um sistema estático, mas um fenômeno vivo, que se transforma ao longo da história e é inerente à nossa própria condição humana. A Sociolinguística nos mostrou que a língua varia em cada comunidade, a Linguística Histórica nos mostrou de onde a língua que falamos veio, e a área de Aquisição da Linguagem nos ajudou a entender como essa ferramenta tão complexa se torna parte de nós na infância.</p>
+
+      <!-- Atividades -->
+        <div class="activities">
+        <div class="activity">Atividade 1</div>
+        <div class="activity">Atividade 2</div>
+        <div class="activity">Atividade 3</div>
+        <div class="activity">Atividade 4</div>
+        <div class="activity">Atividade 5</div>
+        </div>
+    </div>
+
+      <div id="grama-modulo1" class="content">
+
+<h2 style="color: #1a237e;">Módulo 1 -Morfologia: A Estrutura e Formação das Palavras</h2>
+<h3 style="color: #283593;">Introdução</h3><br>
+<p>A Morfologia é a parte da Gramática que estuda a estrutura, a formação e a classificação das palavras. Ela é o alicerce para a Sintaxe, pois, antes de entender como as palavras se organizam em frases, é preciso saber como elas são construídas. Neste módulo, vamos explorar a anatomia das palavras com exemplos e cores que facilitam a memorização.</p><br>
+
+<h3 style="color: #283593;">1. A Estrutura das Palavras: Os Morfemas</h3><br>
+<p>As palavras são formadas por unidades de significado chamadas <span style="color:#d32f2f;font-weight:bold;">morfemas</span>. Vamos detalhar cada tipo.</p><br>
+
+<h4 style="color: #1976d2;"><b>Radical (ou Raiz)</b></h4>
+<p>É o núcleo da palavra, que carrega o significado básico.</p>
+<table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">
+  <tr style="background-color: #bbdefb;">
+    <th>Radical</th>
+    <th>Exemplos</th>
+    <th>Significado</th>
+  </tr>
+  <tr>
+    <td style="color:#d32f2f;">ferr-</td>
+    <td>ferro, ferreiro, ferragem</td>
+    <td>metal ferro</td>
+  </tr>
+  <tr>
+    <td style="color:#d32f2f;">livr-</td>
+    <td>livro, livraria, livreiro</td>
+    <td>objeto para leitura</td>
+  </tr>
+  <tr>
+    <td style="color:#d32f2f;">terr-</td>
+    <td>terra, terreno, terrestre</td>
+    <td>relativo ao solo</td>
+  </tr>
+  <tr>
+    <td style="color:#d32f2f;">sol-</td>
+    <td>solar, ensolarado, solário</td>
+    <td>relativo ao sol</td>
+  </tr>
+</table><br>
+
+<h4 style="color: #1976d2;"><b>Afixos</b></h4>
+<p>São morfemas que se unem ao radical e modificam seu sentido.</p>
+
+<h5 style="color: #0288d1;">Prefixo</h5>
+<table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">
+  <tr style="background-color: #c8e6c9;">
+    <th>Prefixo + Radical</th>
+    <th>Palavra Formada</th>
+    <th>Sentido</th>
+  </tr>
+  <tr>
+    <td style="color:#2e7d32;">in + feliz</td>
+    <td>infeliz</td>
+    <td>negação</td>
+  </tr>
+  <tr>
+    <td style="color:#2e7d32;">re + fazer</td>
+    <td>refazer</td>
+    <td>repetição</td>
+  </tr>
+  <tr>
+    <td style="color:#2e7d32;">anti + corpo</td>
+    <td>anticorpo</td>
+    <td>oposição</td>
+  </tr>
+  <tr>
+    <td style="color:#2e7d32;">pré + escola</td>
+    <td>pré-escola</td>
+    <td>anterior à escola</td>
+  </tr>
+</table><br>
+
+<h5 style="color: #0288d1;">Sufixo</h5>
+<table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">
+  <tr style="background-color: #ffe0b2;">
+    <th>Radical + Sufixo</th>
+    <th>Palavra Formada</th>
+    <th>Sentido</th>
+  </tr>
+  <tr>
+    <td style="color:#f57c00;">cabeça + udo</td>
+    <td>cabeçudo</td>
+    <td>aumentativo</td>
+  </tr>
+  <tr>
+    <td style="color:#f57c00;">flor + eira</td>
+    <td>floreira</td>
+    <td>lugar ou recipiente</td>
+  </tr>
+  <tr>
+    <td style="color:#f57c00;">rápida + mente</td>
+    <td>rapidamente</td>
+    <td>advérbio de modo</td>
+  </tr>
+  <tr>
+    <td style="color:#f57c00;">criança + da</td>
+    <td>criançada</td>
+    <td>grupo de crianças</td>
+  </tr>
+</table><br>
+
+<h4 style="color: #1976d2;"><b>Desinências</b></h4>
+<p>Indicam flexões de gênero, número, tempo, modo e pessoa.</p>
+<table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">
+  <tr style="background-color: #d1c4e9;">
+    <th>Tipo</th>
+    <th>Exemplos</th>
+    <th>Função</th>
+  </tr>
+  <tr>
+    <td style="color:#512da8;">Nominais (gênero)</td>
+    <td>menino / menina</td>
+    <td>masculino / feminino</td>
+  </tr>
+  <tr>
+    <td style="color:#512da8;">Nominais (número)</td>
+    <td>livros / casas</td>
+    <td>plural / singular</td>
+  </tr>
+  <tr>
+    <td style="color:#512da8;">Verbais (tempo e modo)</td>
+    <td>cantávamos</td>
+    <td>pretérito imperfeito do indicativo</td>
+  </tr>
+  <tr>
+    <td style="color:#512da8;">Verbais (pessoa e número)</td>
+    <td>cantávamos</td>
+    <td>1ª pessoa do plural</td>
+  </tr>
+</table><br>
+
+<h3 style="color: #283593;">2. Processos de Formação de Palavras</h3>
+<p>Existem dois processos principais: <span style="color:#d32f2f;font-weight:bold;">derivação</span> e <span style="color:#d32f2f;font-weight:bold;">composição</span>.</p><br>
+
+<h4 style="color: #1976d2;"><b>a) Derivação</b></h4>
+<table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">
+  <tr style="background-color: #b2dfdb;">
+    <th>Tipo</th>
+    <th>Exemplo</th>
+    <th>Explicação</th>
+  </tr>
+  <tr>
+    <td style="color:#00796b;">Prefixal</td>
+    <td>capaz → incapaz</td>
+    <td>Adição de prefixo "in-" para negação</td>
+  </tr>
+  <tr>
+    <td style="color:#00796b;">Sufixal</td>
+    <td>livro → livreiro</td>
+    <td>Adição de sufixo "-eiro" indicando profissão ou ocupação</td>
+  </tr>
+  <tr>
+    <td style="color:#00796b;">Prefixal e Sufixal</td>
+    <td>feliz → infelizmente</td>
+    <td>Combinação de prefixo "in-" e sufixo "-mente"</td>
+  </tr>
+  <tr>
+    <td style="color:#00796b;">Parassintética</td>
+    <td>tarde → atardecer</td>
+    <td>Prefixo e sufixo simultâneos, sem palavra intermediária</td>
+  </tr>
+  <tr>
+    <td style="color:#00796b;">Regressiva</td>
+    <td>pescar → pesca</td>
+    <td>Criação de substantivo a partir do verbo</td>
+  </tr>
+  <tr>
+    <td style="color:#00796b;">Imprópria</td>
+    <td>O jantar / Vamos jantar</td>
+    <td>Mudança de classe sem alterar a forma</td>
+  </tr>
+</table><br>
+
+<h4 style="color: #1976d2;"><b>b) Composição</b></h4>
+<table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">
+  <tr style="background-color: #ffe0e0;">
+    <th>Tipo</th>
+    <th>Exemplo</th>
+    <th>Explicação</th>
+  </tr>
+  <tr>
+    <td style="color:#d32f2f;">Justaposição</td>
+    <td>guarda-chuva, girassol</td>
+    <td>Radicais unidos sem perda de som, hífen opcional</td>
+  </tr>
+  <tr>
+    <td style="color:#d32f2f;">Aglutinação</td>
+    <td>plano + alto = planalto</td>
+    <td>Radicais unidos com perda de som ou letra</td>
+  </tr>
+  <tr>
+    <td style="color:#d32f2f;">Aglutinação</td>
+    <td>água + ardente = aguardente</td>
+    <td>Perda da vogal final do radical "água"</td>
+  </tr>
+</table><br>
+
+<h3 style="color: #283593;">3. A Classificação das Palavras</h3>
+<p>As palavras se classificam em 10 grupos, chamados de classes gramaticais.</p><br>
+
+<h4 style="color: #1976d2;"><b>Classes Variáveis</b></h4>
+<table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">
+  <tr style="background-color: #c5cae9;">
+    <th>Classe</th>
+    <th>Exemplos</th>
+    <th>Função</th>
+  </tr>
+  <tr>
+    <td style="color:#1a237e;">Substantivo</td>
+    <td>amor, Brasil, mesa, Pedro</td>
+    <td>Nomeia pessoas, objetos, lugares ou sentimentos</td>
+  </tr>
+  <tr>
+    <td style="color:#1a237e;">Adjetivo</td>
+    <td>carro novo, casa bonita</td>
+    <td>Qualifica o substantivo</td>
+  </tr>
+  <tr>
+    <td style="color:#1a237e;">Verbo</td>
+    <td>comer, ser, chover</td>
+    <td>Indica ação, estado ou fenômeno</td>
+  </tr>
+  <tr>
+    <td style="color:#1a237e;">Pronome</td>
+    <td>eu, ela, meu, este</td>
+    <td>Substitui ou acompanha o substantivo</td>
+  </tr>
+  <tr>
+    <td style="color:#1a237e;">Artigo</td>
+    <td>o, a, um, uma</td>
+    <td>Define ou indetermina o substantivo</td>
+  </tr>
+  <tr>
+    <td style="color:#1a237e;">Numeral</td>
+    <td>dois, primeiro, dobro</td>
+    <td>Indica quantidade ou ordem</td>
+  </tr>
+</table><br>
+
+<h4 style="color: #1976d2;"><b>Classes Invariáveis</b></h4>
+<table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">
+  <tr style="background-color: #c8e6c9;">
+    <th>Classe</th>
+    <th>Exemplos</th>
+    <th>Função</th>
+  </tr>
+  <tr>
+    <td style="color:#2e7d32;">Advérbio</td>
+    <td>aqui, hoje, muito, bem</td>
+    <td>Modifica verbo, adjetivo ou outro advérbio</td>
+  </tr>
+  <tr>
+    <td style="color:#2e7d32;">Preposição</td>
+    <td>sem, para, com, de</td>
+    <td>Liga palavras ou expressa relação entre elas</td>
+  </tr>
+  <tr>
+    <td style="color:#2e7d32;">Conjunção</td>
+    <td>e, mas, ou, porque</td>
+    <td>Conecta orações ou palavras</td>
+  </tr>
+  <tr>
+    <td style="color:#2e7d32;">Interjeição</td>
+    <td>Ah!, Oba!, Ufa!</td>
+    <td>Expressa emoção ou reação</td>
+  </tr>
+</table>
+
+
+      <!-- Atividades -->
+        <div class="activities">
+        <div class="activity">Atividade 1</div>
+        <div class="activity">Atividade 2</div>
+        <div class="activity">Atividade 3</div>
+        <div class="activity">Atividade 4</div>
+        <div class="activity">Atividade 5</div>
+        </div>
+      </div>
+
+      <!--Conteúdo do Módulo 2-->
+      <div id="grama-modulo2" class="content">
+
+         <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"><br>
+
+  <h2 style="color: #1a237e; border-bottom: 2px solid #1a237e; padding-bottom: 10px;">Módulo 2: Classes de Palavras (Parte 1)</h2><br>
+  <h3 style="color: #283593;">Introdução</h3><br>
+  <p>Neste módulo, vamos nos aprofundar nas classes de palavras que são o núcleo de quase todas as orações. A compreensão detalhada do <span style="font-weight:bold; color: #d32f2f;">substantivo</span>, do <span style="font-weight:bold; color: #1976d2;">adjetivo</span>, do <span style="font-weight:bold; color: #43a047;">artigo</span> e do <span style="font-weight:bold; color: #512da8;">numeral</span> é fundamental para entender a gramática em seu todo, pois são as palavras que nomeiam, caracterizam e quantificam.</p><br>
+
+  <hr style="border: 1px solid #e0e0e0;"><br>
+
+  <h3 style="color: #283593;">1. O Substantivo</h3><br>
+  <p>O substantivo é a classe de palavras mais importante, pois é a base da oração. Ele nomeia seres, objetos, lugares, fenômenos, qualidades, ações, estados e sentimentos.</p><br>
+
+  <h4 style="color: #d32f2f;">Formação do Substantivo</h4><br>
+  <ul>
+    <li><b>Derivação Regressiva:</b> Cria um substantivo a partir de um verbo.
+      <ul>
+        <li><span style="color:#d32f2f;">Exemplos:</span> <span style="font-style:italic;">pesc<b>ar</b></span> (verbo) → <span style="font-style:italic;">pesc<b>a</b></span> (substantivo); <span style="font-style:italic;">vender</span> (verbo) → <span style="font-style:italic;">venda</span> (substantivo).</li>
+      </ul>
+    </li>
+    <li><b>Derivação Imprópria:</b> Uma palavra muda de classe gramatical sem que sua forma seja alterada.
+      <ul>
+        <li><span style="color:#d32f2f;">Exemplos:</span> *O <span style="font-style:italic;">jantar</span> será servido.* (substantivo) | *Vamos <span style="font-style:italic;">jantar</span> na sala.* (verbo).</li>
+      </ul>
+    </li>
+  </ul><br>
+
+  <h4 style="color: #d32f2f;">Tipos de Substantivo</h4><br>
+  <ul>
+    <li><b>Comum</b> (genérico) vs. <b>Próprio</b> (específico):<br>
+      <span style="color:#d32f2f;">Comum:</span> *país*, *rio*, *cidade*. | <span style="color:#d32f2f;">Próprio:</span> *Brasil*, *Rio Amazonas*, *São Paulo*.</li>
+    <li><b>Concreto</b> (existência própria) vs. <b>Abstrato</b> (depende de outro ser):<br>
+      <span style="color:#d32f2f;">Concreto:</span> *caderno*, *mesa*, *saci-pererê*. | <span style="color:#d32f2f;">Abstrato:</span> *saúde*, *alegria*, *amor*, *medo*.</li>
+    <li><b>Simples</b> (um radical) vs. <b>Composto</b> (mais de um radical):<br>
+      <span style="color:#d32f2f;">Simples:</span> *pedra*, *sol*. | <span style="color:#d32f2f;">Composto:</span> *guarda-chuva*, *passatempo*.</li>
+  </ul><br>
+
+  <h4 style="color: #d32f2f;">Substantivos Coletivos</h4><br>
+  <p>Nomeiam um conjunto de seres da mesma espécie.</p>
+  <table border="1" cellpadding="8" style="border-collapse: collapse; width: 100%; background-color: #ffebee;">
+    <tr style="background-color: #ef9a9a;">
+      <th style="color: white;">Coletivo</th>
+      <th style="color: white;">Conjunto de...</th>
+      <th style="color: white;">Exemplo de uso</th>
+    </tr>
+    <tr><td>Alcateia</td><td>lobos</td><td>A <b>alcateia</b> caçava.</td></tr>
+    <tr><td>Cardume</td><td>peixes</td><td>Um <b>cardume</b> se aproximou da praia.</td></tr>
+    <tr><td>Elenco</td><td>atores</td><td>O <b>elenco</b> da peça subiu ao palco.</td></tr>
+    <tr><td>Cacho</td><td>uvas, bananas</td><td>Comprei um <b>cacho</b> de uvas.</td></tr>
+    <tr><td>Constelação</td><td>estrelas</td><td>O céu estava cheio de uma <b>constelação</b>.</td></tr>
+    <tr><td>Ninhada</td><td>filhotes</td><td>Uma <b>ninhada</b> de gatinhos.</td></tr>
+    <tr><td>Matilha</td><td>cães</td><td>A <b>matilha</b> perseguiu o coelho.</td></tr>
+    <tr><td>Esquadrilha</td><td>aviões</td><td>Uma <b>esquadrilha</b> de aviões.</td></tr>
+  </table><br>
+
+  <h4 style="color: #d32f2f;">Flexão do Substantivo</h4><br>
+  <p>Os substantivos variam em gênero (masculino/feminino) e número (singular/plural).</p><br>
+  <ul>
+    <li><b>Gênero:</b>
+      <ul>
+        <li><b>Biformes:</b> Possuem duas formas, uma para cada gênero. (*menino / menina*).</li>
+        <li><b>Uniformes:</b> Têm a mesma forma para ambos os gêneros.
+          <ul>
+            <li>Comuns de dois gêneros: mudam de gênero com o artigo (*o/a cliente*).</li>
+            <li>Epicenos: nomes de animais que não variam (*a onça macho/fêmea*).</li>
+            <li>Sobrecomuns: mesma forma e mesmo artigo (*a criança*, *o cônjuge*).</li>
+          </ul>
+        </li>
+      </ul><br>
+    </li>
+    <li><b>Número:</b>
+      <ul>
+        <li><b>Plural regular:</b> Adição de **-s** no final (*casa* → *casas*).</li>
+        <li><b>Plural irregular:</b> Variações como **-ão** → **-ões**, **-ães**, **-ãos** (*pão* → *pães*; *canção* → *canções*; *mão* → *mãos*).</li>
+      </ul>
+    </li>
+  </ul><br>
+  <hr style="border: 1px solid #e0e0e0;"><br>
+  <h3 style="color: #283593;">2. O Adjetivo</h3><br>
+  <p>O adjetivo é a classe de palavras que <span style="font-weight:bold;">caracteriza o substantivo</span>, atribuindo-lhe qualidades, estados ou condições.</p><br>
+  <h4 style="color: #1976d2;">Formação e Tipos de Adjetivo</h4><br>
+  <ul>
+    <li><b>Formação por derivação:</b><br>
+      Adição de sufixo a um substantivo (*chuva* → *chuvoso*).</li>
+    <li><b>Simples</b> (um radical) vs. <b>Composto</b> (mais de um radical):<br>
+      <span style="color:#1976d2;">Simples:</span> *bom*, *feliz*. | <span style="color:#1976d2;">Composto:</span> *luso-brasileiro*, *verde-claro*.</li>
+    <li><b>Locuções Adjetivas:</b> Duas ou mais palavras com valor de adjetivo.
+      <ul>
+        <li><span style="color:#1976d2;">Exemplos:</span> *dia de chuva* (chuvoso), *sentimento de irmão* (fraterno).</li>
+      </ul>
+    </li>
+  </ul><br>
+
+  <h4 style="color: #1976d2;">Flexão do Adjetivo</h4><br>
+  <ul>
+    <li><b>Gênero:</b>
+      <ul>
+        <li><b>Biformes:</b> Possuem uma forma para o masculino e outra para o feminino (*novo / nova*).</li>
+        <li><b>Uniformes:</b> Possuem uma única forma para os dois gêneros (*feliz*, *simples*).</li>
+      </ul><br>
+    </li>
+    <li><b>Número:</b>
+      <ul>
+        <li><b>Simples:</b> *carro novo* → *carros novos*.</li>
+        <li><b>Composto:</b> Em geral, apenas o último elemento varia. *blusa verde-clara* → *blusas verde-claras*.</li>
+      </ul>
+    </li>
+  </ul><br>
+
+  <h4 style="color: #1976d2;">Graus do Adjetivo</h4><br>
+  <p>Indicam a intensidade da qualidade.</p><br>
+  <ul>
+    <li><b>Comparativo de...</b>
+      <ul>
+        <li>Superioridade: <span style="font-weight:bold;">mais... que/do que</span> | Ela é *mais alta que* ele.</li>
+        <li>Igualdade: <span style="font-weight:bold;">tão... quanto</span> | Ela é *tão alta quanto* ele.</li>
+        <li>Inferioridade: <span style="font-weight:bold;">menos... que/do que</span> | Ela é *menos alta que* ele.</li>
+      </ul><br>
+    </li>
+    <li><b>Superlativo</b>
+      <ul>
+        <li>Absoluto (analítico): <span style="font-weight:bold;">muito, bastante, extremamente</span> | Ele é *muito inteligente*.</li>
+        <li>Absoluto (sintético): Sufixo -<span style="font-weight:bold;">íssimo</span>, -<span style="font-weight:bold;">érrimo</span> | Ele é *inteligentíssimo*.</li>
+        <li>Relativo: <span style="font-weight:bold;">O mais/o menos...</span> | Ele é *o mais alto da turma*.</li>
+      </ul>
+    </li>
+  </ul><br>
+
+  <h4 style="color: #1976d2;">Lista de Formas Irregulares (Essencial para Provas)</h4>
+  <table border="1" cellpadding="8" style="border-collapse: collapse; width: 100%; background-color: #e3f2fd;">
+    <tr style="background-color: #90caf9;">
+      <th style="color: white;">Adjetivo</th>
+      <th style="color: white;">Comparativo</th>
+      <th style="color: white;">Superlativo Sintético</th>
+    </tr>
+    <tr><td>bom</td><td>melhor</td><td>ótimo</td></tr>
+    <tr><td>mau</td><td>pior</td><td>péssimo</td></tr>
+    <tr><td>grande</td><td>maior</td><td>máximo</td></tr>
+    <tr><td>pequeno</td><td>menor</td><td>mínimo</td></tr>
+  </table><br>
+  <hr style="border: 1px solid #e0e0e0;"><br>
+  <h3 style="color: #283593;">3. O Artigo</h3><br>
+  <p>O artigo é a palavra que se coloca antes do substantivo para <span style="font-weight:bold;">determiná-lo</span> ou <span style="font-weight:bold;">indefiní-lo</span>.</p><br>
+  <h4 style="color: #43a047;">Tipos de Artigo</h4>
+  <table border="1" cellpadding="8" style="border-collapse: collapse; width: 100%; background-color: #e8f5e9;">
+    <tr style="background-color: #a5d6a7;">
+      <th style="color: white;">Tipo</th>
+      <th style="color: white;">Singular</th>
+      <th style="color: white;">Plural</th>
+      <th style="color: white;">Exemplo</th>
+    </tr>
+    <tr>
+      <td>Definidos</td>
+      <td>o, a</td>
+      <td>os, as</td>
+      <td><span style="font-weight:bold;">O</span> livro que você me emprestou.</td>
+    </tr>
+    <tr>
+      <td>Indefinidos</td>
+      <td>um, uma</td>
+      <td>uns, umas</td>
+      <td>Comprei <span style="font-weight:bold;">um</span> livro.</td>
+    </tr>
+  </table><br>
+
+  <h4 style="color: #43a047;">Flexão do Artigo</h4><br>
+  <p>O artigo flexiona em gênero e número para concordar com o substantivo que o acompanha.
+    <ul>
+      <li><span style="color:#43a047;">Exemplos:</span> *o carro* → *a casa*; *o carro* → *os carros*.</li>
+    </ul>
+  </p><br>
+
+  <hr style="border: 1px solid #e0e0e0;"><br>
+
+  <h3 style="color: #283593;">4. O Numeral</h3><br>
+  <p>O numeral é a palavra que indica quantidade, ordem, fração ou múltiplo.</p><br>
+  <h4 style="color: #512da8;">Tabela de Numerais</h4>
+  <table border="1" cellpadding="8" style="border-collapse: collapse; width: 100%; background-color: #f3e5f5;">
+    <tr style="background-color: #ce93d8;">
+      <th style="color: white;">Tipo</th>
+      <th style="color: white;">O que indica</th>
+      <th style="color: white;">Exemplos</th>
+    </tr>
+    <tr><td>Cardinais</td><td>Quantidade exata</td><td>um, dois, cem, mil</td></tr>
+    <tr><td>Ordinais</td><td>Posição em uma sequência</td><td>primeiro, segundo, décimo</td></tr>
+    <tr><td>Fracionários</td><td>Parte de um todo</td><td>meio, terço, um quarto</td></tr>
+    <tr><td>Multiplicativos</td><td>Multiplicação</td><td>dobro, triplo, quíntuplo</td></tr>
+  </table><br>
+  <h4 style="color: #512da8;">Flexão do Numeral</h4><br>
+  <ul>
+    <li>A maioria dos cardinais e todos os ordinais flexionam em gênero.</li>
+    <li><span style="color:#512da8;">Exemplos:</span> *duas* filhas, *primeira* posição.</li>
+  </ul>
+
+</div>
+
+      <!-- Atividades -->
+        <div class="activities">
+        <div class="activity">Atividade 1</div>
+        <div class="activity">Atividade 2</div>
+        <div class="activity">Atividade 3</div>
+        <div class="activity">Atividade 4</div>
+        <div class="activity">Atividade 5</div>
+        </div>
+      </div>
+</div>
+
+    
+
 
   <script>
-    function showPage(id) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    function toggleModules(id) {
+      const clicked = document.getElementById(id);
+      const isActive = clicked.classList.contains("active");
+
+      // Fecha todos
+      document.querySelectorAll('.modules').forEach(m => m.classList.remove('active'));
+      document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+
+      if (!isActive) clicked.classList.add("active");
+    }
+
+    function showContent(id) {
+      document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
   </script>
+
 </body>
 </html>
+
